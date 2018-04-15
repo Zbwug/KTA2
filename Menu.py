@@ -1,6 +1,6 @@
 class Menu:
 	menus = []
-    menustate = 0
+	menustate = 0
     
 	def __init__(self, buttons):
 		self.buttons = buttons
@@ -9,7 +9,7 @@ class Menu:
         menus.append(self)
     
 	def draw(window):
-      	key = pygame.key.get_pressed()
+		key = pygame.key.get_pressed()
 		for j in range(len(buttons)):
 			if selectedbutton == j:
 				if type(buttons[j]) is Button:
