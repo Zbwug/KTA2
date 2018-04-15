@@ -11,7 +11,7 @@ clock = pygame.time.Clock()
 
 windowOpen = True
 while windowOpen:
-  seconds = (pygame.time.get_ticks() - starttime) / 1000
+
   for event in pygame.event.get():
     if event.type == QUIT:
       exit()
