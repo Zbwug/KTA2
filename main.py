@@ -1,4 +1,4 @@
-import pygame, pytmx, math, copy
+import pygame, math, copy
 from pygame.locals import *
 from Map import *
 
