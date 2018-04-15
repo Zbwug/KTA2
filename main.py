@@ -16,6 +16,7 @@ while windowOpen:
     if event.type == QUIT:
       exit()
   key = pygame.key.get_pressed()
+	
   if menustate == 0:
     for j in range(len(buttons)):
       if selectedbutton == j:
@@ -40,6 +41,7 @@ while windowOpen:
       selectedbutton = buttons[selectedbutton].s
   if menustate == 1:
 	  print("à faire")
+	
   if menustate == 2:
     while len(todraw) != 0:
       imin = -1
