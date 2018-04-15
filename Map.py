@@ -1,3 +1,5 @@
+import pygame, pytmx
+
 class Map:
 	def __init__(self, filename):
 		tm = pytmx.load_pygame(filename)
