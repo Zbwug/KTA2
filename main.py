@@ -9,7 +9,7 @@ pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 
-fenetre = pygame.display.set_mode((1280, 720))
+fenetre = pygame.display.set_mode((1600, 900))
 clock = pygame.time.Clock()
 
 while windowOpen:
