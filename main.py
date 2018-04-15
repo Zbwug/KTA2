@@ -17,7 +17,7 @@ while windowOpen:
       exit()
   key = pygame.key.get_pressed()
 	
-  if menustate == 0:
+  """if menustate == 0:
     for j in range(len(buttons)):
       if selectedbutton == j:
         if key[pygame.K_RETURN]:
@@ -54,5 +54,6 @@ while windowOpen:
       todraw.remove(todraw[imin])
     temp = (temp + 1) % 10
     if temp == 0:
-      walk = (walk + 1) % 10
+      walk = (walk + 1) % 10"""
+  
   pygame.display.flip()
