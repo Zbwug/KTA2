@@ -1,4 +1,5 @@
 import pygame
+import pytmx
 import math
 import copy
 from pygame.locals import *
@@ -8,9 +9,8 @@ pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 
+fenetre = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
-
-fenetre = pygame.display.set_mode((60 * len(listMap[0]), 60 * len(listMap)))
 
 while windowOpen:
   seconds = (pygame.time.get_ticks() - starttime) / 1000
