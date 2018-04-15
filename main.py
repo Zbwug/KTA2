@@ -55,5 +55,8 @@ while windowOpen:
     temp = (temp + 1) % 10
     if temp == 0:
       walk = (walk + 1) % 10"""
-  
+  map1 = Map('textures/level1.tmx')
+  map_img = map1.make_map()
+  fenetre.blit(link, poslink)
+	
   pygame.display.flip()
