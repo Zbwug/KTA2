@@ -12,12 +12,13 @@ clock = pygame.time.Clock()
 
 windowOpen = True
 while windowOpen:
-  for event in pygame.event.get():
-    if event.type == QUIT:
-      exit()
-  key = pygame.key.get_pressed()
+	for event in pygame.event.get():
+		if event.type == QUIT:
+			exit()
+
+	key = pygame.key.get_pressed()
 	
-  """if menustate == 0:
+	"""if menustate == 0:
     for j in range(len(buttons)):
       if selectedbutton == j:
         if key[pygame.K_RETURN]:
@@ -55,8 +56,9 @@ while windowOpen:
     temp = (temp + 1) % 10
     if temp == 0:
       walk = (walk + 1) % 10"""
-  map1 = Map('textures/tmx/level1.tmx')
-  map_img = map1.make_map()
-  fenetre.blit(map_img, (0, 0))
+	
+	map1 = Map('textures/tmx/level1.tmx')
+	map_img = map1.make_map()
+	fenetre.blit(map_img, (0, 0))
 
-  pygame.display.flip()
+	pygame.display.flip()
