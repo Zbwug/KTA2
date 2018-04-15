@@ -1,6 +1,6 @@
 import pygame, pytmx, math, copy
 from pygame.locals import *
-from 'Map.py' include *
+from Map import *
 
 pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.init()
@@ -55,8 +55,8 @@ while windowOpen:
     temp = (temp + 1) % 10
     if temp == 0:
       walk = (walk + 1) % 10"""
-  map1 = Map('textures/level1.tmx')
+  map1 = Map('textures/tmx/level1.tmx')
   map_img = map1.make_map()
-  fenetre.blit(link, poslink)
-	
+  fenetre.blit(map_img, (0, 0))
+
   pygame.display.flip()
