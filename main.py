@@ -12,7 +12,6 @@ clock = pygame.time.Clock()
 
 fenetre = pygame.display.set_mode((60 * len(listMap[0]), 60 * len(listMap)))
 
-
 while windowOpen:
   seconds = (pygame.time.get_ticks() - starttime) / 1000
   for event in pygame.event.get():
