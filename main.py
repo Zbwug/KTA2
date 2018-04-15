@@ -1,5 +1,6 @@
 import pygame, pytmx, math, copy
 from pygame.locals import *
+from 'Map.py' include *
 
 pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.init()
@@ -11,7 +12,6 @@ clock = pygame.time.Clock()
 
 windowOpen = True
 while windowOpen:
-
   for event in pygame.event.get():
     if event.type == QUIT:
       exit()
