@@ -7,7 +7,7 @@ pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 
-fenetre = pygame.display.set_mode((1600, 900))
+window = pygame.display.set_mode((1600, 900))
 clock = pygame.time.Clock()
 
 windowOpen = True
@@ -59,6 +59,6 @@ while windowOpen:
 	
 	map1 = Map('textures/tmx/level1.tmx')
 	map_img = map1.make_map()
-	fenetre.blit(map_img, (0, 0))
+	window.blit(map_img, (0, 0))
 
 	pygame.display.flip()
