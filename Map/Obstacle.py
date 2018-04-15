@@ -5,7 +5,7 @@ class Obstacle(Map):
 	def __init__(self, x, y, w, h):
 		self.rect = pygame.Rect(x, y, w, h)
 		self.x = x
-		self.y = y
+		self.y = y 
 		self.rect.x = x
 		self.rect.y = y
 
