@@ -1,7 +1,4 @@
-import pygame
-import pytmx
-import math
-import copy
+import pygame, pytmx, math, copy
 from pygame.locals import *
 
 pygame.mixer.pre_init(44100, 16, 2, 4096)
