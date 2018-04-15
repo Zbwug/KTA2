@@ -1,6 +1,6 @@
 import pygame, math, copy
 from pygame.locals import *
-from Map import 
+from Map import *
 
 pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.init()
