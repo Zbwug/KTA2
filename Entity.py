@@ -2,7 +2,7 @@ class Entity:
 	temp = 0
 	entities = []
 
-	def __init__(x, y, image, nbAnimsFrames, pace):
+	def __init__(self, x, y, image, nbAnimsFrames, pace):
 		self.sprite = pygame.image.load(image)
 		self.position = self.sprite.get_rect()
 		self.size = self.position.size
