@@ -17,8 +17,8 @@ class Entity:
 		self.pace = pace
 		entities.append(self)
 
+	@staticmethod
 	def draw(window):
-		@staticmethod
 		for i in entities:
 			entities[i].render(window)
 		temp = (temp + 1) % 256
