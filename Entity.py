@@ -1,3 +1,6 @@
+import pygame
+from pygame.locals import *
+
 class Entity:
 	temp = 0
 	entities = []
@@ -17,11 +20,11 @@ class Entity:
 		self.pace = pace
 		entities.append(self)
 
-	@staticmethod
+	@classmethod
 	def draw(window):
-		for i in entities:
-			entities[i].render(window)
-		temp = (temp + 1) % 256
+		for i in self.entities:
+			i.render(window)
+		self.temp = (self.temp + 1) % 256
 
 	def render(window):
 		if anim < 4:
@@ -39,7 +42,7 @@ class Entity:
 			if anim == 3:
 				position = position.move(1, 0)
 		if anim >= 8:
-			if temp % pace == 0:
+			if Entity.temp % pace == 0:
 				frame += 1
 			if frame == nbAnimsFrames[anim]:
 				frame = 0
