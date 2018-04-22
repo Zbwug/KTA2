@@ -1,5 +1,6 @@
-import pygame
+import pygame, pytmx, sys
 from pygame.locals import *
+from Map import *
 
 class Entity:
 	temp = 0
@@ -18,38 +19,51 @@ class Entity:
 				self.maxAnimsFrames = i
 		self.nbAnimsFrames = nbAnimsFrames
 		self.pace = pace
-		entities.append(self)
+		self.entities.append(self)
 
-	@classmethod
+	@staticmethod
 	def draw(window):
-		for i in self.entities:
+		for i in Entity.entities:
 			i.render(window)
-		self.temp = (self.temp + 1) % 256
+		Entity.temp = (Entity.temp + 1) % 256
 
-	def render(window):
-		if anim < 4:
-			window.blit(sprite, position, (0, anim * size[1] / len(nbAnimsFrames), size[0] / maxAnimsFrames, size[1] / len(nbAnimsFrames)))
-		if anim >= 4 and anim < 8:
-			if temp % pace == 0:
-				frame = (frame + 1) % nbAnimsFrames[i]
-			window.blit(sprite, position, (frame * size[0] / maxAnimsFrames, anim * size[1] / len(nbAnimsFrames), size[0] / maxAnimsFrames, size[1] / len(nbAnimsFrames)))
-			if anim == 0:
-				position = position.move(0, 1)
-			if anim == 1:
-				position = position.move(-1, 0)
-			if anim == 2:
-				position = position.move(0, -1)
-			if anim == 3:
-				position = position.move(1, 0)
-		if anim >= 8:
-			if Entity.temp % pace == 0:
-				frame += 1
-			if frame == nbAnimsFrames[anim]:
-				frame = 0
-				anim %= 4
-			window.blit(sprite, position, (frame * size[0] / maxAnimsFrames, anim * size[1] / len(nbAnimsFrames), size[0] / maxAnimsFrames, size[1] / len(nbAnimsFrames)))
+	@staticmethod
+	def collider(self):
+		sTile = 15
+		for tile_object in map1.tmxdata.objects:
+			top = tile_object.y
+			bottom = tile_object.y + sTile
+			left = tile_object.x
+			right = tile_object.x + sTile
+			if tile_object.name == 'obstacle' and self.position.x + sTile >= left and self.position.x <= right and self.position.y + sTile >= top and self.position.y <= bottom:
+				self.position.x = prevX
+				self.position.y = prevY
 
-	def unwalk():
-		if anim >= 4 and anim < 8:
-			anim %= 4
-			frame = 0
+	def render(self, window):
+		print(self.frame)
+		if self.anim < 4:
+			window.blit(self.sprite, self.position, (0, self.anim * self.size[1] / len(self.nbAnimsFrames), self.size[0] / self.maxAnimsFrames, self.size[1] / len(self.nbAnimsFrames)))
+		if self.anim >= 4 and self.anim < 8:
+			if Entity.temp % self.pace == 0:
+				self.frame = (self.frame + 1) % self.nbAnimsFrames[self.anim]
+			window.blit(self.sprite, self.position, (self.frame * self.size[0] / self.maxAnimsFrames, self.anim * self.size[1] / len(self.nbAnimsFrames), self.size[0] / self.maxAnimsFrames, self.size[1] / len(self.nbAnimsFrames)))
+			if self.anim == 4:
+				self.position = self.position.move(0, 1)
+			elif self.anim == 5:
+				self.position = self.position.move(-1, 0)
+			elif self.anim == 6:
+				self.position = self.position.move(0, -1)
+			elif self.anim == 7:
+				self.position = self.position.move(1, 0)
+		if self.anim >= 8:
+			if Entity.temp % self.pace == 0:
+				self.frame += 1
+			if self.frame == self.nbAnimsFrames[self.anim]:
+				self.frame = 0
+				self.anim %= 4
+			window.blit(self.sprite, self.position, (self.frame * self.size[0] / self.maxAnimsFrames, self.anim * self.size[1] / len(self.nbAnimsFrames), self.size[0] / self.maxAnimsFrames, self.size[1] / len(self.nbAnimsFrames)))
+
+	def unwalk(self):
+		if self.anim >= 4 and self.anim < 8:
+			self.anim %= 4
+			self.frame = 0
