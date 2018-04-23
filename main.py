@@ -6,7 +6,7 @@ from Entity import Entity
 sys.path.insert(0, "Entity")
 sys.path.insert(0, "Menu")
 import Player
-import Buttons
+import Button
 
 pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.init()
@@ -20,8 +20,14 @@ map_img = map1.make_map()
 
 player = Player.Player(0, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)
 
-button = Buttons.Buttons(600, 300, 100, 100, "textures/menu/button.png", "textures/menu/INVASION2000.ttf", 54, "Play", -1, -1, -1, -1)
-menu = Menu.Menu([button])
+def f():
+	Menu.Menu.menustate = 0
+button1 = Button.Button(600, 300, 500, 100, "textures/menu/button.png", "textures/menu/INVASION2000.ttf", 54, "Play", f, -1, -1, 1, -1)
+def f():
+	exit()
+button2 = Button.Button(600, 600, 500, 100, "textures/menu/button.png", "textures/menu/INVASION2000.ttf", 54, "Quit", f, 0, -1, -1, -1)
+
+menu = Menu.Menu([button1, button2])
 
 clock = pygame.time.Clock()
 
