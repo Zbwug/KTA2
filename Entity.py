@@ -28,19 +28,18 @@ class Entity:
 		Entity.temp = (Entity.temp + 1) % 256
 
 	@staticmethod
-	def collider(self):
-		sTile = 15
-		for tile_object in map1.tmxdata.objects:
+	def collider(self, map, player):
+		sTile = 16
+		for tile_object in map.tmxdata.objects:
 			top = tile_object.y
 			bottom = tile_object.y + sTile
 			left = tile_object.x
 			right = tile_object.x + sTile
-			if tile_object.name == 'obstacle' and self.position.x + sTile >= left and self.position.x <= right and self.position.y + sTile >= top and self.position.y <= bottom:
-				self.position.x = prevX
-				self.position.y = prevY
+			if tile_object.name == 'obstacle' and player.position.x + sTile >= left and player.position.x <= right and player.position.y + sTile >= top and player.position.y <= bottom:
+				player.position.x = prevX
+				player.position.y = prevY
 
 	def render(self, window):
-		print(self.frame)
 		if self.anim < 4:
 			window.blit(self.sprite, self.position, (0, self.anim * self.size[1] / len(self.nbAnimsFrames), self.size[0] / self.maxAnimsFrames, self.size[1] / len(self.nbAnimsFrames)))
 		if self.anim >= 4 and self.anim < 8:
