@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="35">
+<map version="1.0" tiledversion="1.1.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="108">
  <tileset firstgid="1" source="../../../KTA2/tileset.tsx"/>
  <layer name="Ground" width="100" height="100">
   <data encoding="csv">
@@ -210,18 +210,71 @@
 </data>
  </layer>
  <objectgroup name="Obstacles">
-  <object id="13" name="wall" x="128" y="256" width="80" height="16"/>
-  <object id="15" name="wall" x="112" y="272" width="32" height="16"/>
-  <object id="16" name="wall" x="96" y="288" width="32" height="16"/>
-  <object id="19" name="wall" x="96" y="304" width="16" height="32"/>
-  <object id="20" name="wall" x="80" y="320" width="16" height="112"/>
-  <object id="21" name="wall" x="96" y="416" width="16" height="32"/>
-  <object id="22" name="wall" x="112" y="432" width="16" height="32"/>
-  <object id="23" name="wall" x="129" y="448" width="79" height="16"/>
-  <object id="24" name="wall" x="192" y="432" width="32" height="16"/>
-  <object id="25" name="wall" x="208" y="416" width="32" height="16"/>
-  <object id="28" name="wall" x="224" y="368" width="16" height="48"/>
-  <object id="29" name="wall" x="160" y="352" width="128" height="16"/>
-  <object id="30" name="wall" x="160" y="336" width="32" height="16"/>
+  <object id="38" name="obstacle" x="192" y="256" width="16" height="16"/>
+  <object id="42" name="obstacle" x="176" y="256" width="16" height="16"/>
+  <object id="43" name="obstacle" x="160" y="256" width="16" height="16"/>
+  <object id="44" name="obstacle" x="144" y="256" width="16" height="16"/>
+  <object id="45" name="obstacle" x="128" y="256" width="16" height="16"/>
+  <object id="46" name="obstacle" x="128" y="272" width="16" height="16"/>
+  <object id="47" name="obstacle" x="112" y="272" width="16" height="16"/>
+  <object id="48" name="obstacle" x="112" y="288" width="16" height="16"/>
+  <object id="49" name="obstacle" x="96" y="288" width="16" height="16"/>
+  <object id="50" name="obstacle" x="96" y="304" width="16" height="16"/>
+  <object id="51" name="obstacle" x="96" y="320" width="16" height="16"/>
+  <object id="52" name="obstacle" x="80" y="320" width="16" height="16"/>
+  <object id="53" name="obstacle" x="80" y="336" width="16" height="16"/>
+  <object id="54" name="obstacle" x="80" y="352" width="16" height="16"/>
+  <object id="55" name="obstacle" x="80" y="400" width="16" height="16"/>
+  <object id="56" name="obstacle" x="80" y="368" width="16" height="16"/>
+  <object id="58" name="obstacle" x="80" y="384" width="16" height="16"/>
+  <object id="59" name="obstacle" x="80" y="416" width="16" height="16"/>
+  <object id="60" name="obstacle" x="96" y="432" width="16" height="16"/>
+  <object id="61" name="obstacle" x="96" y="416" width="16" height="16"/>
+  <object id="62" name="obstacle" x="112" y="432" width="16" height="16"/>
+  <object id="63" name="obstacle" x="112" y="448" width="16" height="16"/>
+  <object id="64" name="obstacle" x="128" y="448" width="16" height="16"/>
+  <object id="65" name="obstacle" x="144" y="448" width="16" height="16"/>
+  <object id="66" name="obstacle" x="160" y="448" width="16" height="16"/>
+  <object id="67" name="obstacle" x="176" y="448" width="16" height="16"/>
+  <object id="68" name="obstacle" x="192" y="448" width="16" height="16"/>
+  <object id="69" name="obstacle" x="208" y="432" width="16" height="16"/>
+  <object id="70" name="obstacle" x="192" y="432" width="16" height="16"/>
+  <object id="71" name="obstacle" x="224" y="416" width="16" height="16"/>
+  <object id="72" name="obstacle" x="208" y="416" width="16" height="16"/>
+  <object id="73" name="obstacle" x="224" y="400" width="16" height="16"/>
+  <object id="74" name="obstacle" x="224" y="368" width="16" height="16"/>
+  <object id="75" name="obstacle" x="224" y="384" width="16" height="16"/>
+  <object id="76" name="obstacle" x="208" y="368" width="16" height="16"/>
+  <object id="77" name="obstacle" x="208" y="352" width="16" height="16"/>
+  <object id="78" name="obstacle" x="176" y="352" width="16" height="16"/>
+  <object id="79" name="obstacle" x="192" y="352" width="16" height="16"/>
+  <object id="80" name="obstacle" x="160" y="352" width="16" height="16"/>
+  <object id="81" name="obstacle" x="160" y="336" width="16" height="16"/>
+  <object id="82" name="obstacle" x="176" y="336" width="16" height="16"/>
+  <object id="83" name="obstacle" x="224" y="352" width="16" height="16"/>
+  <object id="84" name="obstacle" x="240" y="352" width="16" height="16"/>
+  <object id="85" name="obstacle" x="272" y="352" width="16" height="16"/>
+  <object id="86" name="obstacle" x="256" y="352" width="16" height="16"/>
+  <object id="87" name="obstacle" x="304" y="384" width="16" height="16"/>
+  <object id="88" name="obstacle" x="304" y="368" width="16" height="16"/>
+  <object id="89" name="obstacle" x="288" y="384" width="16" height="16"/>
+  <object id="90" name="obstacle" x="288" y="400" width="16" height="16"/>
+  <object id="91" name="obstacle" x="288" y="416" width="16" height="16"/>
+  <object id="92" name="obstacle" x="288" y="432" width="16" height="16"/>
+  <object id="93" name="obstacle" x="288" y="448" width="16" height="16"/>
+  <object id="94" name="obstacle" x="288" y="464" width="16" height="16"/>
+  <object id="95" name="obstacle" x="304" y="464" width="16" height="16"/>
+  <object id="96" name="obstacle" x="320" y="464" width="16" height="16"/>
+  <object id="97" name="obstacle" x="320" y="448" width="16" height="16"/>
+  <object id="98" name="obstacle" x="336" y="448" width="16" height="16"/>
+  <object id="99" name="obstacle" x="336" y="416" width="16" height="16"/>
+  <object id="100" name="obstacle" x="336" y="432" width="16" height="16"/>
+  <object id="101" name="obstacle" x="320" y="368" width="16" height="16"/>
+  <object id="102" name="obstacle" x="353" y="414" width="16" height="16"/>
+  <object id="103" name="obstacle" x="320" y="352" width="16" height="16"/>
+  <object id="104" name="obstacle" x="336" y="352" width="16" height="16"/>
+  <object id="105" name="obstacle" x="352" y="352" width="16" height="16"/>
+  <object id="106" name="obstacle" x="336" y="368" width="16" height="16"/>
+  <object id="107" name="obstacle" x="352" y="368" width="16" height="16"/>
  </objectgroup>
 </map>
