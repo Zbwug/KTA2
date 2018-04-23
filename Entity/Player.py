@@ -9,9 +9,6 @@ class Player(Entity):
 	def render(self, window):
 		super(Player, self).render(window)
 		key = pygame.key.get_pressed()
-		
-		prevX = self.position.x
-		prevY = self.position.y
 
 		if key[pygame.K_DOWN]:
 			self.anim = 4
