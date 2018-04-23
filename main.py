@@ -15,19 +15,20 @@ window = pygame.display.set_mode((1440, 900))
 map1 = Map('textures/tmx/level1.tmx')
 map_img = map1.make_map()
 
-player = Player.Player(0, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 16)
+player = Player.Player(0, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)
 
 clock = pygame.time.Clock()
 
 windowOpen = True
 while windowOpen:
-
+	
 	for event in pygame.event.get():
 		if event.type == QUIT:
 			exit()
 
 	window.blit(map_img, (0, 0))
 	Entity.draw(window)
+	#Entity.collider(window, map1, player)
 	pygame.display.flip()
 
 	clock.tick(144)
