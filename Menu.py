@@ -6,7 +6,7 @@ class Menu:
 		self.buttons = buttons
 		self.selectedbutton = 0
 		self.pressedenterbutton = False
-        menus.append(self)
+		menus.append(self)
     
 	def draw(window):
 		key = pygame.key.get_pressed()
@@ -20,9 +20,9 @@ class Menu:
 						window.blit(buttons[j].sprite, buttons[j].position, (0, 2 * buttons[j].spriteSize[1] / 3, buttons[j].spriteSize[0], buttons[j].spriteSize[1] * 1/3))
 				if type(buttons[j]) is Potentiometer:
 					window.blit(buttons[j].sprite, buttons[j].position, (0, 1 * buttons[j].spriteSize[1] / 3, buttons[j].spriteSize[0], buttons[j].spriteSize[1] * 1/3))
-					if key[pygame.K_q] && buttons[j].level != 0:
+					if key[pygame.K_q] and buttons[j].level != 0:
 						buttons[j].level -= 1 
-					else if key[pygame.K_d] && buttons[j].level != 100:
+					elif key[pygame.K_d] and buttons[j].level != 100:
 						buttons[j].level += 1
 			else:
 				if type(buttons[j]) is Button:
