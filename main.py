@@ -13,7 +13,7 @@ pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 
-window = pygame.display.set_mode((1440, 900))
+window = pygame.display.set_mode((1024, 768))
 
 map1 = Map('textures/tmx/level1.tmx')
 map_img = map1.make_map()
@@ -22,10 +22,10 @@ player = Player.Player(0, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 
 
 def f():
 	Menu.Menu.menustate = 0
-button1 = Button.Button(600, 300, 500, 100, "textures/menu/button.png", "textures/menu/INVASION2000.ttf", 54, "Play", f, -1, -1, 1, -1)
+button1 = Button.Button(600, 300, 500, 100, "textures/menu/button.png", "textures/menu/INVASION2000.TTF", 54, "Play", f, -1, -1, 1, -1)
 def f():
 	exit()
-button2 = Button.Button(600, 600, 500, 100, "textures/menu/button.png", "textures/menu/INVASION2000.ttf", 54, "Quit", f, 0, -1, -1, -1)
+button2 = Button.Button(600, 600, 500, 100, "textures/menu/button.png", "textures/menu/INVASION2000.TTF", 54, "Quit", f, 0, -1, -1, -1)
 
 menu = Menu.Menu([button1, button2])
 
