@@ -66,3 +66,13 @@ class Entity:
 		if self.anim >= 4 and self.anim < 8:
 			self.anim %= 4
 			self.frame = 0
+	@classmethod
+	def initAll(self, map):
+		mapmatrix = []
+		for i in range(int(map.tmxdata.width) % 16):
+			mapmatrix.append([])
+			for j in range(int(map.tmxdata.height) % 16):
+				mapmatrix[i].append(0)
+		for object in map.tmxdata.objects:
+			if object.name == 'obstacle':
+				mapmatrix[int(object.x) % 16][int(object.y) % 16] = 1
