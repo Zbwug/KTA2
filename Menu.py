@@ -1,5 +1,4 @@
-import pygame
-import sys
+import pygame, sys, time
 sys.path.insert(0, "Menu")
 from Button import Button
 
@@ -13,36 +12,21 @@ class Menu:
 		self.pressedenterbutton = False
 		self.menus.append(self)
 		self.gif = gif
-		self.img1 = pygame.image.load("textures/menu/background/1.png")
-		self.img2 = pygame.image.load("textures/menu/background/2.png")
-		self.img3 = pygame.image.load("textures/menu/background/3.png")
-		self.img4 = pygame.image.load("textures/menu/background/4.png")
-		self.img5 = pygame.image.load("textures/menu/background/5.png")
-		self.img6 = pygame.image.load("textures/menu/background/6.png")
-		self.img7 = pygame.image.load("textures/menu/background/7.png")
-		self.img8 = pygame.image.load("textures/menu/background/8.png")
-		self.position1 = self.img1.get_rect()
-		self.position2 = self.img2.get_rect()
-		self.position3 = self.img3.get_rect()
-		self.position4 = self.img4.get_rect()
-		self.position5 = self.img5.get_rect()
-		self.position6 = self.img6.get_rect()
-		self.position7 = self.img7.get_rect()
-		self.position8 = self.img8.get_rect()
-		
-		
-		
+		self.gifbg = pygame.image.load("textures/menu/background/gif2.png")
+		self.gifbg =  pygame.transform.scale(self.gifbg, (8192, 768))
+		self.gifposition = self.gifbg.get_rect()
+		self.maxNumberOfFrame = 8
+		self.cdGif = 0		
 
 	def draw(self, window):
-		key = pygame.key.get_pressed()
-		window.blit(self.img1, self.position1)
-		window.blit(self.img2, self.position2)
-		window.blit(self.img3, self.position3)
-		window.blit(self.img4, self.position4)
-		window.blit(self.img5, self.position5)
-		window.blit(self.img6, self.position6)
-		window.blit(self.img7, self.position7)
-		window.blit(self.img8, self.position8)
+		key = pygame.key.get_pressed()	
+		if self.cdGif >= self.maxNumberOfFrame - 1:
+			self.cdGif = 0
+		else:
+			self.cdGif += 1
+			time.sleep(0.08)
+		window.blit(self.gifbg, self.gifposition, (self.cdGif*1024, 0, 1024, 768))
+			
 		for j in range(len(self.buttons)):
 			if self.selectedbutton == j:
 				if type(self.buttons[j]) is Button:
