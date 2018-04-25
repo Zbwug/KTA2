@@ -22,12 +22,12 @@ player = Player.Player(0, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 
 
 def f():
 	Menu.Menu.menustate = 0
-button1 = Button.Button(600, 300, 500, 100, "textures/menu/button.png", "textures/menu/INVASION2000.TTF", 54, "Play", f, -1, -1, 1, -1)
+button1 = Button.Button(1024/2 - 240, 768/2 - 100, 500, 100, "textures/menu/button.png", "textures/menu/INVASION2000.TTF", 54, "Play", f, -1, -1, 1, -1)
 def f():
 	exit()
-button2 = Button.Button(600, 600, 500, 100, "textures/menu/button.png", "textures/menu/INVASION2000.TTF", 54, "Quit", f, 0, -1, -1, -1)
+button2 = Button.Button(1024/2 - 240, 768/2 + 100, 500, 100, "textures/menu/button.png", "textures/menu/INVASION2000.TTF", 54, "Quit", f, 0, -1, -1, -1)
 
-menu = Menu.Menu([button1, button2])
+menu = Menu.Menu([button1, button2], "textures/menu/background/")
 
 clock = pygame.time.Clock()
 
@@ -41,7 +41,7 @@ while windowOpen:
 	key = pygame.key.get_pressed()
 
 	if key[pygame.K_ESCAPE]:
-		Menu.menustate = 1
+		Menu.Menu.menustate = 1
 
 	if Menu.Menu.menustate == 0:
 		window.blit(map_img, (0, 0))
