@@ -5,6 +5,7 @@ from Map import *
 class Entity:
 	temp = 0
 	entities = []
+	mapmatrix = []
 
 	def __init__(self, x, y, image, nbAnimsFrames, pace):
 		self.sprite = pygame.image.load(image)
@@ -68,11 +69,11 @@ class Entity:
 			self.frame = 0
 	@classmethod
 	def initAll(self, map):
-		mapmatrix = []
-		for i in range(int(map.tmxdata.width) % 16):
-			mapmatrix.append([])
-			for j in range(int(map.tmxdata.height) % 16):
-				mapmatrix[i].append(0)
+		self.mapmatrix = []
+		for i in range(map.tmxdata.height):
+			self.mapmatrix.append([])
+			for j in range(map.tmxdata.width):
+				self.mapmatrix[i].append(0)
 		for object in map.tmxdata.objects:
 			if object.name == 'obstacle':
-				mapmatrix[int(object.x) % 16][int(object.y) % 16] = 1
+				self.mapmatrix[int(object.y / 16)][int(object.x / 16)] = 1

@@ -6,6 +6,7 @@ from Entity import Entity
 sys.path.insert(0, "Entity")
 sys.path.insert(0, "Menu")
 import Player
+import Human
 import Button
 
 pygame.mixer.pre_init(44100, 16, 2, 4096)
@@ -18,7 +19,9 @@ window = pygame.display.set_mode((1024, 768))
 map1 = Map('textures/tmx/level1.tmx')
 map_img = map1.make_map()
 
+Entity.initAll(map1)
 player = Player.Player(0, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)
+ncp = Human.Human(16, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 100, player)
 
 def f():
 	Menu.Menu.menustate = 0
@@ -33,7 +36,6 @@ clock = pygame.time.Clock()
 
 windowOpen = True
 while windowOpen:
-	
 	for event in pygame.event.get():
 		if event.type == QUIT:
 			exit()
