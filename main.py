@@ -21,7 +21,7 @@ map_img = map1.make_map()
 
 Entity.initAll(map1)
 player = Player.Player(0, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)
-ncp = Human.Human(16, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 100, player)
+npc = Human.Human(160, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14, player, [[10, 0], [30, 0], [30, 20], [10, 20]])
 
 def f():
 	Menu.Menu.menustate = 0
