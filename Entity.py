@@ -1,6 +1,8 @@
 import pygame, pytmx, sys
 from pygame.locals import *
 from Map import *
+sys.path.insert(0, "Entity")
+import Player
 
 class Entity:
 	temp = 0
@@ -23,9 +25,9 @@ class Entity:
 		self.entities.append(self)
 
 	@staticmethod
-	def draw(window):
+	def draw(window, camera):
 		for i in Entity.entities:
-			i.render(window)
+			Entity.render(i, window, camera)
 		Entity.temp = (Entity.temp + 1) % 256
 
 	@staticmethod
@@ -36,17 +38,24 @@ class Entity:
 			bottom = tile_object.y + sTile
 			left = tile_object.x
 			right = tile_object.x + sTile
-			if tile_object.name == 'obstacle' and player.position.x + sTile >= left and player.position.x <= right and player.position.y + sTile >= top and player.position.y <= bottom:
+			if tile_object.name == 'o' and player.position.x + sTile >= left and player.position.x <= right and player.position.y + sTile >= top and player.position.y <= bottom:
 				player.position.x = prevX
 				player.position.y = prevY
 
-	def render(self, window):
+	def render(self, window, camera):
+		self.sprite = pygame.transform.scale(self.sprite, (int(self.size[0] * 1024 / camera.w), int(self.size[1] * 768 / camera.h)))
+		width = self.sprite.get_rect().size[0]
+		height = self.sprite.get_rect().size[1]
 		if self.anim < 4:
-			window.blit(self.sprite, self.position, (0, self.anim * self.size[1] / len(self.nbAnimsFrames), self.size[0] / self.maxAnimsFrames, self.size[1] / len(self.nbAnimsFrames)))
+			self.position = self.position.move(int(-camera.x + 512), int(-camera.y + 383))
+			window.blit(self.sprite, self.position, (0, self.anim * height / len(self.nbAnimsFrames), width / self.maxAnimsFrames, height / len(self.nbAnimsFrames)))
+			self.position = self.position.move(int(camera.x - 512), int(camera.y - 383))
 		if self.anim >= 4 and self.anim < 8:
 			if Entity.temp % self.pace == 0:
 				self.frame = (self.frame + 1) % self.nbAnimsFrames[self.anim]
-			window.blit(self.sprite, self.position, (self.frame * self.size[0] / self.maxAnimsFrames, self.anim * self.size[1] / len(self.nbAnimsFrames), self.size[0] / self.maxAnimsFrames, self.size[1] / len(self.nbAnimsFrames)))
+			self.position = self.position.move(int(-camera.x + 512), int(-camera.y + 383))
+			window.blit(self.sprite, self.position, (self.frame * width / self.maxAnimsFrames, self.anim * height / len(self.nbAnimsFrames), width / self.maxAnimsFrames, height / len(self.nbAnimsFrames)))
+			self.position = self.position.move(int(camera.x - 512), int(camera.y - 383))
 			if self.anim == 4:
 				self.position = self.position.move(0, 1)
 			elif self.anim == 5:
@@ -61,19 +70,27 @@ class Entity:
 			if self.frame == self.nbAnimsFrames[self.anim]:
 				self.frame = 0
 				self.anim %= 4
-			window.blit(self.sprite, self.position, (self.frame * self.size[0] / self.maxAnimsFrames, self.anim * self.size[1] / len(self.nbAnimsFrames), self.size[0] / self.maxAnimsFrames, self.size[1] / len(self.nbAnimsFrames)))
+			self.position = self.position.move(int(-camera.x + 512), int(-camera.y + 383))
+			window.blit(self.sprite, self.position, (self.frame * width / self.maxAnimsFrames, self.anim * height / len(self.nbAnimsFrames), width / self.maxAnimsFrames, height / len(self.nbAnimsFrames)))
+			self.position = self.position.move(int(camera.x - 512), int(camera.y - 383))
+		#self.sprite = pygame.transform.scale(self.sprite, (width, height))
 
 	def unwalk(self):
 		if self.anim >= 4 and self.anim < 8:
 			self.anim %= 4
 			self.frame = 0
-	@classmethod
-	def initAll(self, map):
-		self.mapmatrix = []
+	
+	@staticmethod
+	def initAll(map):
+		mapmatrix = []
 		for i in range(map.tmxdata.height):
-			self.mapmatrix.append([])
+			mapmatrix.append([])
 			for j in range(map.tmxdata.width):
-				self.mapmatrix[i].append(0)
+				mapmatrix[i].append(0)
 		for object in map.tmxdata.objects:
-			if object.name == 'obstacle':
-				self.mapmatrix[int(object.y / 16)][int(object.x / 16)] = 1
+			if object.name == 'o':
+				mapmatrix[int(object.y / 16)][int(object.x / 16)] = 1
+			"""if object.name == 'player':
+				player = Player.Player(object.x, object.y, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)"""
+
+
