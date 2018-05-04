@@ -1,4 +1,6 @@
-import pygame, pytmx
+import pygame, pytmx, sys
+sys.path.insert(0, "Entity")
+import Player
 
 class Map:
 	def __init__(self, filename):
@@ -20,3 +22,10 @@ class Map:
 		temp_surface = pygame.Surface((self.width, self.height))
 		self.render(temp_surface)
 		return temp_surface
+
+class Camera:
+	def __init__(self, x, y, h):
+		self.x = x
+		self.y = y
+		self.h = h
+		self.w = int(4/3 * h)
