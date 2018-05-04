@@ -27,7 +27,7 @@ class Entity:
 	@staticmethod
 	def draw(window, camera):
 		for i in Entity.entities:
-			Entity.render(i, window, camera)
+			type(i).render(i, window, camera)
 		Entity.temp = (Entity.temp + 1) % 256
 
 	@staticmethod
@@ -73,23 +73,21 @@ class Entity:
 			self.position = self.position.move(int(-camera.x + 512), int(-camera.y + 383))
 			window.blit(self.sprite, self.position, (self.frame * width / self.maxAnimsFrames, self.anim * height / len(self.nbAnimsFrames), width / self.maxAnimsFrames, height / len(self.nbAnimsFrames)))
 			self.position = self.position.move(int(camera.x - 512), int(camera.y - 383))
-		#self.sprite = pygame.transform.scale(self.sprite, (width, height))
 
 	def unwalk(self):
 		if self.anim >= 4 and self.anim < 8:
 			self.anim %= 4
 			self.frame = 0
-	
+
 	@staticmethod
-	def initAll(map):
-		mapmatrix = []
+	def initAll(self, map):
 		for i in range(map.tmxdata.height):
-			mapmatrix.append([])
+			self.mapmatrix.append([])
 			for j in range(map.tmxdata.width):
-				mapmatrix[i].append(0)
+				self.mapmatrix[i].append(0)
 		for object in map.tmxdata.objects:
 			if object.name == 'o':
-				mapmatrix[int(object.y / 16)][int(object.x / 16)] = 1
+				self.mapmatrix[int(object.y / 16)][int(object.x / 16)] = 1
 			"""if object.name == 'player':
 				player = Player.Player(object.x, object.y, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)"""
 

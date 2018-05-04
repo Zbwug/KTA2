@@ -28,15 +28,17 @@ menu = Menu.Menu([button1, button2], "textures/menu/background/")
 map1 = Map('textures/tmx/level1.tmx')
 map_img = map1.make_map()
 
-Entity.initAll(map1)
-player = Player.Player(0, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)
-camera = Camera(0, 0, 768/2)
-npc = Human.Human(160, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14, player, [[10, 0], [30, 0], [30, 20], [10, 20]])
+Entity.initAll(Entity, map1)
+player = Player.Player(1000, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)
+camera = Camera(0, 0, 2000)
+npc = Human.Human(868, 203, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14, player, [[56, 15], [61, 15], [61, 20], [56, 20]])
 
 clock = pygame.time.Clock()
 
 windowOpen = True
 while windowOpen:
+	print(npc.position.x, npc.position.y)
+	print(player.position.x, player.position.y)
 	for event in pygame.event.get():
 		if event.type == QUIT:
 			exit()
@@ -51,10 +53,10 @@ while windowOpen:
 		camera.y = player.position.y
 		map_img = pygame.transform.scale(map_img, (int(1600 * 1024 / camera.w), int(1600 * 1024 / camera.w)))
 		posmap = map_img.get_rect()
-		
-		posmap = posmap.move(int(-camera.x / 1024 + 512), int(-camera.y / 1024 + 383))
+
+		posmap = posmap.move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
 		window.blit(map_img, posmap)
-		posmap = posmap.move(int(camera.x / 1024 - 512), int(camera.y / 1024 - 383))
+		posmap = posmap.move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
 
 		Entity.draw(window, camera)
 		#Entity.collider(window, map1, player)
