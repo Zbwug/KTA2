@@ -16,17 +16,16 @@ class Menu:
 		self.gifbg =  pygame.transform.scale(self.gifbg, (8192, 768))
 		self.gifposition = self.gifbg.get_rect()
 		self.maxNumberOfFrame = 8
-		self.cdGif = 0		
+		self.cdGif = 0
+		self.temp = 0
 
 	def draw(self, window):
-		key = pygame.key.get_pressed()	
-		if self.cdGif >= self.maxNumberOfFrame - 1:
-			self.cdGif = 0
-		else:
-			self.cdGif += 1
-			time.sleep(0.08)
+		key = pygame.key.get_pressed()
+		self.temp = (self.temp + 1) % 10
+		if self.temp == 9:
+			self.cdGif = (self.cdGif + 1) % (self.maxNumberOfFrame - 1)
 		window.blit(self.gifbg, self.gifposition, (self.cdGif*1024, 0, 1024, 768))
-			
+
 		for j in range(len(self.buttons)):
 			if self.selectedbutton == j:
 				if type(self.buttons[j]) is Button:
@@ -62,7 +61,3 @@ class Menu:
 		if key[pygame.K_DOWN] and self.buttons[self.selectedbutton].s != -1:
 			self.selectedbutton = self.buttons[self.selectedbutton].s
 		self.pressedenterbutton = key[pygame.K_RETURN]
-		
-
-		 
-
