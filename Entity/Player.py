@@ -6,10 +6,9 @@ class Player(Entity):
 	def __init__(self, x, y, image, nbAnimsFrames, pace):
 		super(Player, self).__init__(x, y, image, nbAnimsFrames, pace)
 
-	def render(self, window):
-		super(Player, self).render(window)
+	def render(self, window, camera):
+		super(Player, self).render(window, camera)
 		key = pygame.key.get_pressed()
-
 		if key[pygame.K_DOWN]:
 			self.anim = 4
 		elif key[pygame.K_LEFT]:
