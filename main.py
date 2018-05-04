@@ -29,7 +29,7 @@ map1 = Map('textures/tmx/level1.tmx')
 map_img = map1.make_map()
 
 Entity.initAll(map1)
-player = Player.Player(1680, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)
+player = Player.Player(0, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)
 camera = Camera(0, 0, 768/2)
 npc = Human.Human(160, 0, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14, player, [[10, 0], [30, 0], [30, 20], [10, 20]])
 
