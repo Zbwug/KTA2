@@ -59,7 +59,7 @@ class Human(Entity):
 			return []
 		openlist = []
 		closedlist = [start]
-		min = [start[0], start[1], 1000000000, 0, 0]
+		min = [start[0], start[1], sys.maxsize, 0, 0]
 		while min[0] != finish[0] or min[1] != finish[1]:
 			closedlist.append(min)
 			if min in openlist:
