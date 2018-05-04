@@ -11,8 +11,8 @@ class Human(Entity):
 		self.patternstate = 0
 		self.pursuit = False
 
-	def render(self, window):
-		super(Human, self).render(window)
+	def render(self, window, camera):
+		super(Human, self).render(window, camera)
 		if self.position.x % 16 == 0 and self.position.y % 16 == 0:
 			path = []
 			if self.pursuit:
