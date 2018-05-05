@@ -5,6 +5,8 @@ import Menu
 from Entity import Entity
 sys.path.insert(0, "Entity")
 sys.path.insert(0, "Menu")
+sys.path.insert(0, "HUD")
+import Dialog
 import Player
 import Human
 import Button
@@ -29,8 +31,8 @@ map1 = Map('textures/tmx/level1.tmx')
 map_img = map1.make_map()
 
 Entity.initAll(Entity, map1)
-player = Player.Player(1000, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)
-camera = Camera(0, 0, 2000)
+player = Player.Player(1000, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 3)
+camera = Camera(0, 0, 400)
 npc = Human.Human(868, 203, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14, player, [[56, 15], [61, 15], [61, 20], [56, 20]])
 
 clock = pygame.time.Clock()
@@ -63,6 +65,8 @@ while windowOpen:
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
 
+	if key[pygame.K_g]:
+		Dialog.Dialog(40, "Je suis un véritable enculé de renom qui va t'aider dans ton aventure <o/").box(window)
 	pygame.display.flip()
 
 	clock.tick(144)
