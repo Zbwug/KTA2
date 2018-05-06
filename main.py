@@ -39,8 +39,6 @@ clock = pygame.time.Clock()
 
 windowOpen = True
 while windowOpen:
-	print(npc.position.x, npc.position.y)
-	print(player.position.x, player.position.y)
 	for event in pygame.event.get():
 		if event.type == QUIT:
 			exit()
