@@ -5,8 +5,6 @@ import Menu
 from Entity import Entity
 sys.path.insert(0, "Entity")
 sys.path.insert(0, "Menu")
-sys.path.insert(0, "HUD")
-import Dialog
 import Player
 import Human
 import Button
@@ -15,8 +13,6 @@ pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
-popsound = pygame.mixer.Sound("textures/hud/pop.wav")
-m = False
 
 window = pygame.display.set_mode((1024, 768))
 
@@ -33,9 +29,9 @@ map1 = Map('textures/tmx/level1.tmx')
 map_img = map1.make_map()
 
 Entity.initAll(Entity, map1)
-player = Player.Player(1000, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 3)
-camera = Camera(0, 0, 400)
-npc = Human.Human(868, 203, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14, player, [[56, 15], [61, 15], [61, 20], [56, 20]])
+player = Player.Player(1000, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)
+camera = Camera(0, 0, 500)
+npc = Human.Human(864, 192, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14, player, [[56, 15], [61, 15], [61, 20], [56, 20]])
 
 clock = pygame.time.Clock()
 
@@ -44,9 +40,6 @@ while windowOpen:
 	for event in pygame.event.get():
 		if event.type == QUIT:
 			exit()
-		if event.type == pygame.KEYUP:
-			if event.key == pygame.K_g:
-				m = False
 
 	key = pygame.key.get_pressed()
 
@@ -56,6 +49,7 @@ while windowOpen:
 	if Menu.Menu.menustate == 0:
 		camera.x = player.position.x
 		camera.y = player.position.y
+
 		map_img = pygame.transform.scale(map_img, (int(1600 * 1024 / camera.w), int(1600 * 1024 / camera.w)))
 		posmap = map_img.get_rect()
 
@@ -68,14 +62,6 @@ while windowOpen:
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
 
-	if key[pygame.K_g]: 
-		l = True
-		if l == True and m == True:
-			l = True #C'est juste pour ne rien faire xd
-		else:
-			popsound.play()
-			m = True
-		Dialog.Dialog(40, "Je suis un véritable enculé de renom qui va t'aider dans ton aventure <o/").box(window)
 	pygame.display.flip()
 
 	clock.tick(144)

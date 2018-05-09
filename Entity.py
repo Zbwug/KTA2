@@ -46,16 +46,17 @@ class Entity:
 		self.sprite = pygame.transform.scale(self.sprite, (int(self.size[0] * 1024 / camera.w), int(self.size[1] * 768 / camera.h)))
 		width = self.sprite.get_rect().size[0]
 		height = self.sprite.get_rect().size[1]
+		position = [self.position.x, self.position.y]
 		if self.anim < 4:
-			self.position = self.position.move(int(-camera.x + 512), int(-camera.y + 383))
+			self.position = self.position.move(int(-camera.x + (position[0] - camera.x) * (1024 / camera.w - 1) + 512), int(-camera.y + (position[1] - camera.y) * (1024 / camera.w - 1) + 383))
 			window.blit(self.sprite, self.position, (0, self.anim * height / len(self.nbAnimsFrames), width / self.maxAnimsFrames, height / len(self.nbAnimsFrames)))
-			self.position = self.position.move(int(camera.x - 512), int(camera.y - 383))
+			self.position = self.position.move(int(camera.x - (position[0] - camera.x) * (1024 / camera.w - 1) - 512), int(camera.y - (position[1] - camera.y) * (1024 / camera.w - 1) - 383))
 		if self.anim >= 4 and self.anim < 8:
 			if Entity.temp % self.pace == 0:
 				self.frame = (self.frame + 1) % self.nbAnimsFrames[self.anim]
-			self.position = self.position.move(int(-camera.x + 512), int(-camera.y + 383))
+			self.position = self.position.move(int(-camera.x + (position[0] - camera.x) * (1024 / camera.w - 1) + 512), int(-camera.y + (position[1] - camera.y) * (1024 / camera.w - 1) + 383))
 			window.blit(self.sprite, self.position, (self.frame * width / self.maxAnimsFrames, self.anim * height / len(self.nbAnimsFrames), width / self.maxAnimsFrames, height / len(self.nbAnimsFrames)))
-			self.position = self.position.move(int(camera.x - 512), int(camera.y - 383))
+			self.position = self.position.move(int(camera.x - (position[0] - camera.x) * (1024 / camera.w - 1) - 512), int(camera.y - (position[1] - camera.y) * (1024 / camera.w - 1) - 383))
 			if self.anim == 4:
 				self.position = self.position.move(0, 1)
 			elif self.anim == 5:
@@ -70,9 +71,9 @@ class Entity:
 			if self.frame == self.nbAnimsFrames[self.anim]:
 				self.frame = 0
 				self.anim %= 4
-			self.position = self.position.move(int(-camera.x + 512), int(-camera.y + 383))
+			self.position = self.position.move(int(-camera.x + (position[0] - camera.x) * (1024 / camera.w - 1) + 512), int(-camera.y + (position[1] - camera.y) * (1024 / camera.w - 1) + 383))
 			window.blit(self.sprite, self.position, (self.frame * width / self.maxAnimsFrames, self.anim * height / len(self.nbAnimsFrames), width / self.maxAnimsFrames, height / len(self.nbAnimsFrames)))
-			self.position = self.position.move(int(camera.x - 512), int(camera.y - 383))
+			self.position = self.position.move(int(camera.x - (position[0] - camera.x) * (1024 / camera.w - 1) - 512), int(camera.y - (position[1] - camera.y) * (1024 / camera.w - 1) - 383))
 
 	def unwalk(self):
 		if self.anim >= 4 and self.anim < 8:
