@@ -15,6 +15,8 @@ pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
+popsound = pygame.mixer.Sound("textures/hud/pop.wav")
+m = False
 
 window = pygame.display.set_mode((1024, 768))
 
@@ -42,6 +44,9 @@ while windowOpen:
 	for event in pygame.event.get():
 		if event.type == QUIT:
 			exit()
+		if event.type == pygame.KEYUP:
+			if event.key == pygame.K_g:
+				m = False
 
 	key = pygame.key.get_pressed()
 
@@ -63,7 +68,13 @@ while windowOpen:
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
 
-	if key[pygame.K_g]:
+	if key[pygame.K_g]: 
+		l = True
+		if l == True and m == True:
+			l = True #C'est juste pour ne rien faire xd
+		else:
+			popsound.play()
+			m = True
 		Dialog.Dialog(40, "Je suis un véritable enculé de renom qui va t'aider dans ton aventure <o/").box(window)
 	pygame.display.flip()
 
