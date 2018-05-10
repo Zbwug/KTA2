@@ -58,13 +58,13 @@ class Entity:
 			window.blit(self.sprite, self.position, (self.frame * width / self.maxAnimsFrames, self.anim * height / len(self.nbAnimsFrames), width / self.maxAnimsFrames, height / len(self.nbAnimsFrames)))
 			self.position = self.position.move(int(camera.x - (position[0] - camera.x) * (1024 / camera.w - 1) - 512), int(camera.y - (position[1] - camera.y) * (1024 / camera.w - 1) - 383))
 			if self.anim == 4:
-				self.position = self.position.move(0, 1)
+				self.position = self.position.move(0, 2)
 			elif self.anim == 5:
-				self.position = self.position.move(-1, 0)
+				self.position = self.position.move(-2, 0)
 			elif self.anim == 6:
-				self.position = self.position.move(0, -1)
+				self.position = self.position.move(0, -2)
 			elif self.anim == 7:
-				self.position = self.position.move(1, 0)
+				self.position = self.position.move(2, 0)
 		if self.anim >= 8:
 			if Entity.temp % self.pace == 0:
 				self.frame += 1
