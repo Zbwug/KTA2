@@ -36,6 +36,7 @@ Entity.initAll(Entity, map1)
 player = Player.Player(1000, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5)
 camera = Camera(0, 0, 500)
 npc = Human.Human(864, 192, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5, player, [[56, 15], [61, 15], [61, 20], [56, 20]])
+dCount = 0
 
 clock = pygame.time.Clock()
 
@@ -75,8 +76,13 @@ while windowOpen:
 			l = True #C'est juste pour ne rien faire xd
 		else:
 			popsound.play()
+			dCount += 1
 			m = True
-		Dialog.Dialog(40, "Je suis un véritable enculé de renom qui va t'aider dans ton aventure <o/").box(window)
+			print(dCount)
+		if dCount > Dialog.Dialog.getNumberOfLines():
+			print("Plus de texte xD")
+		else:
+			Dialog.Dialog(40, Dialog.Dialog.getLine(dCount).rstrip("\n")).box(window)
 	pygame.display.flip()
 
 	clock.tick(144)
