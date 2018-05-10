@@ -33,14 +33,14 @@ class Entity:
 	@staticmethod
 	def collider(self, map, player):
 		sTile = 16
-		for tile_object in map.tmxdata.objects:
-			top = tile_object.y
-			bottom = tile_object.y + sTile
-			left = tile_object.x
-			right = tile_object.x + sTile
-			if tile_object.name == 'o' and player.position.x + sTile >= left and player.position.x <= right and player.position.y + sTile >= top and player.position.y <= bottom:
-				player.position.x = prevX
-				player.position.y = prevY
+		collideBloc = pygame.image.load("textures/collision.png")
+		key = pygame.key.get_pressed()
+		if key[pygame.K_c]:
+			for tile_object in map.tmxdata.objects:
+				if tile_object.name == 'o':
+					posBloc = collideBloc.get_rect().move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
+					window.blit(collideBloc, (tile_object.x * 1024 / camera.w + posBloc.x, tile_object.y * 768 / camera.h + posBloc.y))
+					posBloc = collideBloc.get_rect().move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
 
 	def render(self, window, camera):
 		self.sprite = pygame.transform.scale(self.sprite, (int(self.size[0] * 1024 / camera.w), int(self.size[1] * 768 / camera.h)))
