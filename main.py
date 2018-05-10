@@ -33,9 +33,9 @@ map1 = Map('textures/tmx/level1.tmx')
 map_img = map1.make_map()
 
 Entity.initAll(Entity, map1)
-player = Player.Player(1000, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)
+player = Player.Player(1000, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5)
 camera = Camera(0, 0, 500)
-npc = Human.Human(864, 192, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14, player, [[56, 15], [61, 15], [61, 20], [56, 20]])
+npc = Human.Human(864, 192, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5, player, [[56, 15], [61, 15], [61, 20], [56, 20]])
 
 clock = pygame.time.Clock()
 
