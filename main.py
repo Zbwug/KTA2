@@ -18,7 +18,6 @@ pygame.display.set_caption("Kill the Anthony 2")
 popsound = pygame.mixer.Sound("textures/hud/pop.wav")
 m = False
 
-
 window = pygame.display.set_mode((1024, 768))
 
 def f():
@@ -30,10 +29,11 @@ button2 = Button.Button(380, 500, 250, 70, "textures/menu/button.png", "textures
 
 menu = Menu.Menu([button1, button2], "textures/menu/background/")
 
-map1 = Map('textures/tmx/level1.tmx')
+currentlevel = 1
+map1 = Map('textures/tmx/level{}.tmx'.format(curentlevel))
 map_img = map1.make_map()
 
-Entity.initAll(Entity, map1)
+Entity.initMatrix(Entity, map1)
 player = Player.Player(1000, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5)
 camera = Camera(0, 0, 500)
 npc = Human.Human(864, 192, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5, player, [[56, 15], [61, 15], [61, 20], [56, 20]])
@@ -41,6 +41,8 @@ dCount = 0
 
 script = "scripts/script.txt"
 dialog = Dialog.Dialog(40, script, dCount)
+clock = pygame.time.Clock()
+
 clock = pygame.time.Clock()
 
 windowOpen = True
@@ -69,7 +71,7 @@ while windowOpen:
 		posmap = posmap.move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
 
 		Entity.draw(window, camera)
-		#Entity.collider(window, map1, player)
+		Entity.collider(window, map1, map_img, player, currentlevel)
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
 	if key[pygame.K_g]:

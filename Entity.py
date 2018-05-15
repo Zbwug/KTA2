@@ -1,6 +1,7 @@
 import pygame, pytmx, sys
 from pygame.locals import *
 from Map import *
+import Map
 sys.path.insert(0, "Entity")
 import Player
 
@@ -31,16 +32,20 @@ class Entity:
 		Entity.temp = (Entity.temp + 1) % 256
 
 	@staticmethod
-	def collider(self, map, player, window, camera):
+	def collider(self, map, map_img, player, currentlevel):
 		sTile = 16
 		collideBloc = pygame.image.load("textures/collision.png")
 		key = pygame.key.get_pressed()
-		if key[pygame.K_c]:
-			for tile_object in map.tmxdata.objects:
-				if tile_object.name == 'o':
-					posBloc = collideBloc.get_rect().move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
-					window.blit(collideBloc, (tile_object.x * 1024 / camera.w + posBloc.x, tile_object.y * 768 / camera.h + posBloc.y))
-					posBloc = collideBloc.get_rect().move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
+		for tile_object in map.tmxdata.objects:
+			#if tile_object.name == 'o':
+				#posBloc = collideBloc.get_rect().move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
+				#window.blit(collideBloc, (tile_object.x * 1024 / camera.w + posBloc.x, tile_object.y * 768 / camera.h + posBloc.y))
+				#posBloc = collideBloc.get_rect().move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
+			if tile_object.name == 'exit':
+				if tile_object.x <= player.position.x + player.size[0] and tile_object.x + 16 >= player.position.x and tile_object.y <= player.position.y + player.size[1] and tile_object.y + 16 >= player.position.y:
+					currentlevel = currentlevel + 1
+					map = Map.Map('textures/tmx/level{}.tmx'.format(currentlevel))
+					map_img = map.make_map()
 
 	def render(self, window, camera):
 		self.sprite = pygame.transform.scale(self.sprite, (int(self.size[0] * 1024 / camera.w), int(self.size[1] * 768 / camera.h)))
@@ -81,7 +86,7 @@ class Entity:
 			self.frame = 0
 
 	@staticmethod
-	def initAll(self, map):
+	def initMatrix(self, map):
 		for i in range(map.tmxdata.height):
 			self.mapmatrix.append([])
 			for j in range(map.tmxdata.width):
@@ -89,7 +94,3 @@ class Entity:
 		for object in map.tmxdata.objects:
 			if object.name == 'o':
 				self.mapmatrix[int(object.y / 16)][int(object.x / 16)] = 1
-			"""if object.name == 'player':
-				player = Player.Player(object.x, object.y, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 14)"""
-
-
