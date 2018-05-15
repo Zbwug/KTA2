@@ -66,22 +66,15 @@ while windowOpen:
 		posmap = posmap.move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
 
 		Entity.draw(window, camera)
-		Entity.collider(window, map1, player, window, camera)
+		#Entity.collider(window, map1, player)
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
-	
-	if key[pygame.K_g]: 
-		l = True
-		if l == True and m == True:
-			l = True #C'est juste pour ne rien faire xd
-		else:
+	if key[pygame.K_g]:
+		if not m:
 			popsound.play()
 			dCount += 1
 			m = True
-			print(dCount)
-		if dCount > Dialog.Dialog.getNumberOfLines():
-			print("Plus de texte xD")
-		else:
+		if dCount <= Dialog.Dialog.getNumberOfLines():
 			Dialog.Dialog(40, Dialog.Dialog.getLine(dCount).rstrip("\n")).box(window)
 	pygame.display.flip()
 
