@@ -7,7 +7,7 @@ class Dialog:
 		self.textbox = pygame.image.load("textures/hud/textbox.png")
 		self.textbox = pygame.transform.scale(self.textbox, (1020, 200))
 		self.fontDialog = pygame.font.Font(None,30)
-		self.script = open(script, 'r')
+		self.script = script
 		self.txt = self.fontDialog.render(self.getLine(dCount).rstrip("\n"), 1, (0, 0, 0))
 
 
@@ -16,10 +16,12 @@ class Dialog:
 		window.blit(self.txt, (self.x, 768-(200/2)))
 
 	def getNumberOfLines(self):
+		script = open(self.script, "r")
 		n = 0
-		for lines in self.script:
+		for lines in script:
 			n += 1
 		return n
 
 	def getLine(self, n):
 		return linecache.getline(self.script, n)
+		
