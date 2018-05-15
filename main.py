@@ -66,7 +66,7 @@ while windowOpen:
 		posmap = posmap.move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
 
 		Entity.draw(window, camera)
-		#Entity.collider(window, map1, player)
+		Entity.collider(window, map1, player, window, camera)
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
 	
