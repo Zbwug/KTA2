@@ -31,7 +31,7 @@ class Entity:
 		Entity.temp = (Entity.temp + 1) % 256
 
 	@staticmethod
-	def collider(self, map, player):
+	def collider(self, map, player, window, camera):
 		sTile = 16
 		collideBloc = pygame.image.load("textures/collision.png")
 		key = pygame.key.get_pressed()
