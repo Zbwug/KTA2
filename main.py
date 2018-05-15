@@ -30,7 +30,7 @@ button2 = Button.Button(380, 500, 250, 70, "textures/menu/button.png", "textures
 menu = Menu.Menu([button1, button2], "textures/menu/background/")
 
 currentlevel = 1
-map1 = Map('textures/tmx/level{}.tmx'.format(curentlevel))
+map1 = Map('textures/tmx/level{}.tmx'.format(currentlevel))
 map_img = map1.make_map()
 
 Entity.initMatrix(Entity, map1)
