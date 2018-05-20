@@ -39,7 +39,7 @@ map_img = map1.make_map()
 player = Player.Player(1000, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5)
 camera = Camera(0, 0, 500)
 npc = Human.Human(864, 192, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5, player, [[56, 15], [61, 15], [61, 20], [56, 20]])
-Entity.initMatrix(Entity, map1, map_img, player)
+Entity.initMatrix(Entity, map1)
 dCount = 0
 
 script = "scripts/script.txt"
