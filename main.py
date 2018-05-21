@@ -6,11 +6,13 @@ from Map import *
 import Menu
 from Entity import Entity
 sys.path.insert(0, "Entity")
+sys.path.insert(0, "Entity/Human")
 sys.path.insert(0, "Menu")
 sys.path.insert(0, "HUD")
 import Dialog
 import Player
 import Human
+import Enemy
 import Button
 
 pygame.mixer.pre_init(44100, 16, 2, 4096)
@@ -38,7 +40,7 @@ map_img = map1.make_map()
 
 player = Player.Player(1000, 500, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5)
 camera = Camera(0, 0, 500)
-npc = Human.Human(864, 192, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5, player, [[56, 15], [61, 15], [61, 20], [56, 20]])
+npc = Enemy.Enemy(864, 192, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5, player, [[896, 240], [976, 240], [976, 320], [896, 320]])
 Entity.initMatrix(Entity, map1)
 dCount = 0
 
