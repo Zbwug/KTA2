@@ -4,42 +4,40 @@ from Entity import Entity
 import math
 
 class Human(Entity):
-	def __init__(self, x, y, image, nbAnimsFrames, pace, target, pattern):
+	def __init__(self, x, y, image, nbAnimsFrames, pace, player, pattern):
 		super(Human, self).__init__(x, y, image, nbAnimsFrames, pace)
-		self.target = target
+		self.player = player
 		self.pattern = pattern
 		self.patternstate = 0
-		self.pursuit = False
+
+	def hasNoticed(self, target):
+		direction = [0, 0]
+		if self.anim % 4 == 0:
+			direction = [0, 1]
+		if self.anim % 4 == 1:
+			direction = [-1, 0]
+		if self.anim % 4 == 2:
+			direction = [0, -1]
+		if self.anim % 4 == 3:
+			direction = [1, 0]
+		scalar = (target[0] - self.position.x) * direction[0] + (target[1] - self.position.y) * direction[1]
+		scalar = scalar / math.sqrt(math.pow(target[0] - self.position.x, 2) + math.pow(target[1] - self.position.y, 2))
+		return scalar > .5 and math.sqrt(math.pow(target[0] / 16 - self.position.x / 16, 2) + math.pow(target[1] / 16 - self.position.y / 16, 2)) <= 10 or scalar <= .5 and math.sqrt(math.pow(target[0] / 16 - self.position.x / 16, 2) + math.pow(target[1] / 16 - self.position.y / 16, 2)) <= 3
+
+	def hasLost(self, target):
+		return math.sqrt(math.pow(target[0] / 16 - self.position.x / 16, 2) + math.pow(target[1] / 16 - self.position.y / 16, 2)) >= 20
+
+	def gotoPattern(self):
+		if self.position.x == self.pattern[self.patternstate][0] and self.position.y == self.pattern[self.patternstate][1]:
+			self.patternstate = (self.patternstate + 1) % len(self.pattern)
+		self.target = self.pattern[self.patternstate]
 
 	def render(self, window, camera):
 		super(Human, self).render(window, camera)
 		if self.position.x % 16 == 0 and self.position.y % 16 == 0:
 			path = []
-			if self.pursuit:
-				path = self.astar([int(self.target.position.x / 16), int(self.target.position.y / 16)])
-			else:
-				if self.position.x / 16 == self.pattern[self.patternstate][0] and self.position.y / 16 == self.pattern[self.patternstate][1]:
-					self.patternstate = (self.patternstate + 1) % len(self.pattern)
-				path = self.astar(self.pattern[self.patternstate])
-			if self.target != None:
-				if self.pursuit:
-					if math.sqrt(math.pow(self.target.position.x / 16 - self.position.x / 16, 2) + math.pow(self.target.position.y / 16 - self.position.y / 16, 2)) >= 20:
-						self.pursuit = False
-						self.patternstate = 0
-				else:
-					direction = [0, 0]
-					if self.anim % 4 == 0:
-						direction = [0, 1]
-					if self.anim % 4 == 1:
-						direction = [-1, 0]
-					if self.anim % 4 == 2:
-						direction = [0, -1]
-					if self.anim % 4 == 3:
-						direction = [1, 0]
-					scalar = (self.target.position.x - self.position.x) * direction[0] + (self.target.position.y - self.position.y) * direction[1]
-					scalar = scalar / math.sqrt(math.pow(self.target.position.x - self.position.x, 2) + math.pow(self.target.position.y - self.position.y, 2))
-					if scalar > .5 and math.sqrt(math.pow(self.target.position.x / 16 - self.position.x / 16, 2) + math.pow(self.target.position.y / 16 - self.position.y / 16, 2)) <= 10 or scalar <= .5 and math.sqrt(math.pow(self.target.position.x / 16 - self.position.x / 16, 2) + math.pow(self.target.position.y / 16 - self.position.y / 16, 2)) <= 3:
-						self.pursuit = True
+			self.setTarget()
+			path = self.astar([int(self.target[0] / 16), int(self.target[1] / 16)])
 			if len(path) >= 2:
 				if path[1][1] - path[0][1] == 1:
 					self.anim = 4
