@@ -84,13 +84,3 @@ class Entity:
 		if self.anim >= 4 and self.anim < 8:
 			self.anim %= 4
 			self.frame = 0
-
-	@staticmethod
-	def initMatrix(self, map):
-		for i in range(map.tmxdata.height):
-			self.mapmatrix.append([])
-			for j in range(map.tmxdata.width):
-				self.mapmatrix[i].append(0)
-		for object in map.tmxdata.objects:
-			if object.name == 'o':
-				self.mapmatrix[int(object.y / 16)][int(object.x / 16)] = 1
