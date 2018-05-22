@@ -10,6 +10,8 @@ sys.path.insert(0, "Entity/Human")
 sys.path.insert(0, "Menu")
 sys.path.insert(0, "HUD")
 import Dialog
+import Inventory
+import Hearts
 import Player
 import Human
 import Enemy
@@ -21,6 +23,8 @@ pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 popsound = pygame.mixer.Sound("textures/hud/pop.wav")
 m = False
+
+playerLife = 3
 
 
 window = pygame.display.set_mode((1024, 768))
@@ -57,6 +61,18 @@ dCount = 0
 
 script = "scripts/script.txt"
 dialog = Dialog.Dialog(40, script, dCount)
+
+inventory = Inventory.Inventory(((1024/2)-int((148*1.5)/2)) + 25, 768- int(39*1.5))
+
+heart1 = Hearts.Hearts(10, 10, "heart")
+heart2 = Hearts.Hearts(60, 10, "heart")
+heart3 = Hearts.Hearts(110, 10, "heart")
+
+dark1 = Hearts.Hearts(10, 10, "dark")
+dark2 = Hearts.Hearts(60, 10, "dark")
+dark3 = Hearts.Hearts(110, 10, "dark")
+
+
 clock = pygame.time.Clock()
 
 windowOpen = True
@@ -76,8 +92,19 @@ while windowOpen:
 	if Menu.Menu.menustate == 0:
 		camera.x = Entity.entities[0].position.x
 		camera.y = Entity.entities[0].position.y
+		if camera.x - camera.w/2 < 0:
+			camera.x = camera.w/2		
+		if camera.y - camera.h/2 < 0:			
+			camera.y = camera.h/2		
+		if camera.x + camera.w/2 > map1.width:			
+			camera.x = map1.width - camera.w/2		
+		if camera.y + camera.h/2 > map1.height:
+			camera.y = map1.height - camera.h/2
 
 		map_img = pygame.transform.scale(map_img, (int(1600 * 1024 / camera.w), int(1600 * 1024 / camera.w)))
+		
+		
+		
 		posmap = map_img.get_rect()
 
 		posmap = posmap.move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
@@ -86,12 +113,33 @@ while windowOpen:
 
 		Entity.draw(window, camera)
 		Entity.collider(window, map1, map_img, Entity.entities[0], currentlevel)
+		inventory.box(window)
+		if playerLife == 3:
+			heart1.box(window)
+			heart2.box(window)
+			heart3.box(window)
+		elif playerLife == 2:
+			heart1.box(window)
+			heart2.box(window)
+			dark3.box(window)
+		elif playerLife == 1:
+			heart1.box(window)
+			dark2.box(window)
+			dark3.box(window)
+		else:
+			dark1.box(window)
+			dark2.box(window)
+			dark3.box(window)
+			Menu.Menu.menustate = 1
+			playerLife = 3
+		
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
 	if key[pygame.K_g]:
 		if not m:
 			popsound.play()
 			dCount += 1
+			playerLife -= 1
 			m = True
 		if dCount <= dialog.maxLines():
 			Dialog.Dialog(40, script, dCount).box(window)
