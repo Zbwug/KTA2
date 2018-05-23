@@ -64,14 +64,13 @@ dialog = Dialog.Dialog(40, script, dCount)
 
 inventory = Inventory.Inventory(((1024/2)-int((148*1.5)/2)) + 25, 768- int(39*1.5))
 
-heart1 = Hearts.Hearts(10, 10, "heart")
-heart2 = Hearts.Hearts(60, 10, "heart")
-heart3 = Hearts.Hearts(110, 10, "heart")
-
-dark1 = Hearts.Hearts(10, 10, "dark")
-dark2 = Hearts.Hearts(60, 10, "dark")
-dark3 = Hearts.Hearts(110, 10, "dark")
-
+heart = []
+dark = []
+xhearts = 10
+for s in range(playerLife):
+	heart.append(Hearts.Hearts(xhearts, 10, "heart"))
+	dark.append(Hearts.Hearts(xhearts, 10, "dark"))
+	xhearts += 50
 
 clock = pygame.time.Clock()
 
@@ -114,25 +113,17 @@ while windowOpen:
 		Entity.draw(window, camera)
 		Entity.collider(window, map1, map_img, Entity.entities[0], currentlevel)
 		inventory.box(window)
-		if playerLife == 3:
-			heart1.box(window)
-			heart2.box(window)
-			heart3.box(window)
-		elif playerLife == 2:
-			heart1.box(window)
-			heart2.box(window)
-			dark3.box(window)
-		elif playerLife == 1:
-			heart1.box(window)
-			dark2.box(window)
-			dark3.box(window)
-		else:
-			dark1.box(window)
-			dark2.box(window)
-			dark3.box(window)
+		
+		for i in range(3):
+			if i < playerLife:
+				heart[i].box(window)
+			else:
+				dark[i].box(window)
+		
+		if playerLife == 0:
 			Menu.Menu.menustate = 1
 			playerLife = 3
-		
+	
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
 	if key[pygame.K_g]:
