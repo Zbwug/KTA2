@@ -15,6 +15,7 @@ import Hearts
 import Player
 import Human
 import Enemy
+import Potentiometer
 import Button
 
 pygame.mixer.pre_init(44100, 16, 2, 4096)
@@ -22,8 +23,20 @@ pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 popsound = pygame.mixer.Sound("textures/hud/pop.wav")
+#music = pygame.mixer.Sound("sounds/mix 8bit.wav")
+#music.play()
+volume = 0.1
+#music.set_volume(volume)
 m = False
 playerLife = 3
+
+gray = pygame.Color(120, 120, 120, 255)
+green = pygame.Color(0, 255, 0, 255)
+white = pygame.Color(255, 255, 255, 255)
+power = 1
+xSlider = (650/2) + 50
+wRect = 650
+slider = Potentiometer.Potentiometer(xSlider, (65/2) + 15, 8, 22, green, 1)
 
 
 window = pygame.display.set_mode((1024, 768))
@@ -84,6 +97,8 @@ while windowOpen:
 
 	key = pygame.key.get_pressed()
 
+	rect = Potentiometer.Potentiometer(50, 50, wRect, 15, gray, 0)
+
 	if key[pygame.K_ESCAPE]:
 		Menu.Menu.menustate = 1
 
@@ -128,6 +143,28 @@ while windowOpen:
 			playerLife = 3
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
+		rect.draw(window)
+		slider.draw(window)
+		if key[pygame.K_RIGHT]:
+			if xSlider >= wRect + 47:
+				xSlider = 700
+				volume = 0.2
+			else:
+				slider.deplacement(window, power)
+				xSlider += power
+				#volume += (percentSlide*0.2)/100
+		if key[pygame.K_LEFT]:
+			if xSlider <= 50:
+				xSlider = 50
+				volume = 0
+			else:
+				slider.deplacement(window, power)
+				xSlider -= power
+				#volume -= (percentSlide*0.2)/100
+		percentSlide = int((100*(xSlider - 50))/650)
+		myfont = pygame.font.SysFont("comicsansms", 27)
+		label = myfont.render(str(percentSlide)+" %", 1, white)
+		window.blit(label, (750, 40))
 	
 	if key[pygame.K_g]:
 		if not m:
@@ -137,6 +174,7 @@ while windowOpen:
 			m = True
 		if dCount <= dialog.maxLines():
 			Dialog.Dialog(40, script, dCount).box(window)
+	#music.set_volume(volume)
 	pygame.display.flip()
 
 	#print("FPS : {}".format(clock.get_fps()))
