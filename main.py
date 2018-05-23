@@ -73,6 +73,7 @@ dCount = 0
 
 script = "scripts/script.txt"
 dialog = Dialog.Dialog(40, script, dCount)
+myfont = pygame.font.SysFont("scripts/fonts/VCR_OSD_MONO_1.001.ttf", 27)
 
 Entity.entities[0].inventory = Inventory.Inventory(((1024/2)-int((148*1.5)/2)) + 25, 768- int(39*1.5), Entity.entities[0])
 heart = []
@@ -162,9 +163,10 @@ while windowOpen:
 				xSlider -= power
 				#volume -= (percentSlide*0.2)/100
 		percentSlide = int((100*(xSlider - 50))/650)
-		myfont = pygame.font.SysFont("comicsansms", 27)
 		label = myfont.render(str(percentSlide)+" %", 1, white)
-		window.blit(label, (750, 40))
+		slvolume = myfont.render("Volume : ", 1, white)
+		window.blit(label, (xSlider+10, 49))
+		window.blit(slvolume, (300, 20))
 	
 	if key[pygame.K_g]:
 		if not m:
