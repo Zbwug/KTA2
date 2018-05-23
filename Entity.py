@@ -3,6 +3,8 @@ from pygame.locals import *
 from Map import *
 import Map
 sys.path.insert(0, "Entity")
+sys.path.insert(0, "HUD")
+import Inventory
 import Player
 
 class Entity:
@@ -24,6 +26,8 @@ class Entity:
 		self.nbAnimsFrames = nbAnimsFrames
 		self.pace = pace
 		self.entities.append(self)
+		self.key = False
+		self.keyowned = False
 
 	@staticmethod
 	def draw(window, camera):
@@ -44,13 +48,15 @@ class Entity:
 					window.blit(collideBloc, (tile_object.x * 1024 / camera.w + posBloc.x, tile_object.y * 768 / camera.h + posBloc.y))
 					posBloc = collideBloc.get_rect().move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
 			#clé
-			if tile_object.name == 'key':
-				top = tile_object.y
-				bottom = tile_object.y + sTile
-				left = tile_object.x
-				right = tile_object.x + sTile
-				if player.position.x + sTile >= left and player.position.x <= right and player.position.y + sTile >= top and player.position.y <= bottom:
-					key = True
+			if player.keyowned == False:
+				if tile_object.name == 'key':
+					top = tile_object.y
+					bottom = tile_object.y + sTile
+					left = tile_object.x
+					right = tile_object.x + sTile
+					if player.position.x + sTile >= left and player.position.x <= right and player.position.y + sTile >= top and player.position.y <= bottom:
+						player.key = True
+
 					
 			if tile_object.name == 'exit':
 				if tile_object.x <= player.position.x + player.size[0] and tile_object.x + 16 >= player.position.x and tile_object.y <= player.position.y + player.size[1] and tile_object.y + 16 >= player.position.y:
@@ -93,6 +99,5 @@ class Entity:
 
 	def unwalk(self):
 		if self.anim >= 4 and self.anim < 8:
-			print(Entity.mapmatrix[int(self.position.y / 16)][int(self.position.x / 16)] == 1 or Entity.mapmatrix[int(self.position.y / 16 + 1)][int(self.position.x / 16)] == 1 or Entity.mapmatrix[int(self.position.y / 16)][int(self.position.x / 16 + 1)] == 1 or Entity.mapmatrix[int(self.position.y / 16 + 1)][int(self.position.x / 16 + 1)] == 1)
 			self.anim %= 4
 			self.frame = 0
