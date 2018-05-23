@@ -32,20 +32,26 @@ class Entity:
 		Entity.temp = (Entity.temp + 1) % 256
 
 	@staticmethod
-	def collider(self, map, map_img, player, currentlevel):
+	def collider(self, map, map_img, player, window, camera, currentlevel):
 		sTile = 16
 		collideBloc = pygame.image.load("textures/collision.png")
 		key = pygame.key.get_pressed()
-		#while Entity.mapmatrix[int(player.position.y / 16)][int(player.position.x / 16)] == 1 or Entity.mapmatrix[int(player.position.y / 16 + 1)][int(player.position.x / 16)] == 1 or Entity.mapmatrix[int(player.position.y / 16)][int(player.position.x / 16 + 1)] == 1 or Entity.mapmatrix[int(player.position.y / 16 + 1)][int(player.position.x / 16 + 1)] == 1:
-		#	if player.anim % 4 == 0:
-		#		player.position = player.position.move(0, -4)
-		#	if player.anim % 4 == 1:
-		#		player.position = player.position.move(4, 0)
-		#	if player.anim % 4 == 2:
-		#		player.position = player.position.move(0, 4)
-		#	if player.anim % 4 == 3:
-		#		player.position = player.position.move(-4, 0)
+				
 		for tile_object in map.tmxdata.objects:
+			if tile_object.name == 'o':
+				if key[pygame.K_c]:
+					posBloc = collideBloc.get_rect().move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
+					window.blit(collideBloc, (tile_object.x * 1024 / camera.w + posBloc.x, tile_object.y * 768 / camera.h + posBloc.y))
+					posBloc = collideBloc.get_rect().move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
+			#clé
+			if tile_object.name == 'key':
+				top = tile_object.y
+				bottom = tile_object.y + sTile
+				left = tile_object.x
+				right = tile_object.x + sTile
+				if player.position.x + sTile >= left and player.position.x <= right and player.position.y + sTile >= top and player.position.y <= bottom:
+					key = True
+					
 			if tile_object.name == 'exit':
 				if tile_object.x <= player.position.x + player.size[0] and tile_object.x + 16 >= player.position.x and tile_object.y <= player.position.y + player.size[1] and tile_object.y + 16 >= player.position.y:
 					currentlevel = currentlevel + 1
@@ -87,5 +93,6 @@ class Entity:
 
 	def unwalk(self):
 		if self.anim >= 4 and self.anim < 8:
+			print(Entity.mapmatrix[int(self.position.y / 16)][int(self.position.x / 16)] == 1 or Entity.mapmatrix[int(self.position.y / 16 + 1)][int(self.position.x / 16)] == 1 or Entity.mapmatrix[int(self.position.y / 16)][int(self.position.x / 16 + 1)] == 1 or Entity.mapmatrix[int(self.position.y / 16 + 1)][int(self.position.x / 16 + 1)] == 1)
 			self.anim %= 4
 			self.frame = 0
