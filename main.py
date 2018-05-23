@@ -10,8 +10,6 @@ sys.path.insert(0, "Entity/Human")
 sys.path.insert(0, "Menu")
 sys.path.insert(0, "HUD")
 import Dialog
-import Inventory
-import Hearts
 import Player
 import Human
 import Enemy
@@ -23,9 +21,7 @@ pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 popsound = pygame.mixer.Sound("textures/hud/pop.wav")
 m = False
-
 playerLife = 3
-
 
 window = pygame.display.set_mode((1024, 768))
 
@@ -51,9 +47,9 @@ def initMatrix(self, map):
 		if object.name == 'o':
 			self.mapmatrix[int(object.y / 16)][int(object.x / 16)] = 1
 		if object.name == 'player':
-			Player.Player(object.x, object.y, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5)
+			Player.Player(object.x, object.y, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 2)
 		if object.name == 'enemy':
-			Enemy.Enemy(object.x, object.y, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 5, player, [[896, 240], [976, 240], [976, 320], [896, 320]])
+			Enemy.Enemy(object.x, object.y, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 2, player, [[896, 240], [976, 240], [976, 320], [896, 320]])
 
 camera = Camera(0, 0, 500)
 initMatrix(Entity, map1)
@@ -63,7 +59,6 @@ script = "scripts/script.txt"
 dialog = Dialog.Dialog(40, script, dCount)
 
 inventory = Inventory.Inventory(((1024/2)-int((148*1.5)/2)) + 25, 768- int(39*1.5))
-
 heart = []
 dark = []
 xhearts = 10
@@ -91,19 +86,17 @@ while windowOpen:
 	if Menu.Menu.menustate == 0:
 		camera.x = Entity.entities[0].position.x
 		camera.y = Entity.entities[0].position.y
+		
 		if camera.x - camera.w/2 < 0:
-			camera.x = camera.w/2		
-		if camera.y - camera.h/2 < 0:			
-			camera.y = camera.h/2		
-		if camera.x + camera.w/2 > map1.width:			
-			camera.x = map1.width - camera.w/2		
+			camera.x = camera.w/2
+		if camera.y - camera.h/2 < 0:
+			camera.y = camera.h/2
+		if camera.x + camera.w/2 > map1.width:
+			camera.x = map1.width - camera.w/2
 		if camera.y + camera.h/2 > map1.height:
 			camera.y = map1.height - camera.h/2
-
-		map_img = pygame.transform.scale(map_img, (int(1600 * 1024 / camera.w), int(1600 * 1024 / camera.w)))
 		
-		
-		
+		map_img = pygame.transform.scale(map_img, (int(map1.width * 1024 / camera.w), int(map1.height * 1024 / camera.w)))
 		posmap = map_img.get_rect()
 
 		posmap = posmap.move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
@@ -111,9 +104,8 @@ while windowOpen:
 		posmap = posmap.move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
 
 		Entity.draw(window, camera)
-		Entity.collider(window, map1, map_img, Entity.entities[0], currentlevel)
-		inventory.box(window)
-		
+		Entity.collider(window, map1, map_img, Entity.entities[0], window, camera, currentlevel)
+
 		for i in range(3):
 			if i < playerLife:
 				heart[i].box(window)
@@ -123,7 +115,6 @@ while windowOpen:
 		if playerLife == 0:
 			Menu.Menu.menustate = 1
 			playerLife = 3
-	
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
 	if key[pygame.K_g]:
@@ -136,4 +127,5 @@ while windowOpen:
 			Dialog.Dialog(40, script, dCount).box(window)
 	pygame.display.flip()
 
+	#print(clock.get_fps())
 	clock.tick(144)
