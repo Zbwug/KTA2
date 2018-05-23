@@ -21,7 +21,6 @@ pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 popsound = pygame.mixer.Sound("textures/hud/pop.wav")
 m = False
-playerLife = 3
 
 window = pygame.display.set_mode((1024, 768))
 
@@ -57,16 +56,6 @@ dCount = 0
 
 script = "scripts/script.txt"
 dialog = Dialog.Dialog(40, script, dCount)
-
-inventory = Inventory.Inventory(((1024/2)-int((148*1.5)/2)) + 25, 768- int(39*1.5))
-heart = []
-dark = []
-xhearts = 10
-for s in range(playerLife):
-	heart.append(Hearts.Hearts(xhearts, 10, "heart"))
-	dark.append(Hearts.Hearts(xhearts, 10, "dark"))
-	xhearts += 50
-
 clock = pygame.time.Clock()
 
 windowOpen = True
@@ -105,27 +94,16 @@ while windowOpen:
 
 		Entity.draw(window, camera)
 		Entity.collider(window, map1, map_img, Entity.entities[0], window, camera, currentlevel)
-
-		for i in range(3):
-			if i < playerLife:
-				heart[i].box(window)
-			else:
-				dark[i].box(window)
-		
-		if playerLife == 0:
-			Menu.Menu.menustate = 1
-			playerLife = 3
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
 	if key[pygame.K_g]:
 		if not m:
 			popsound.play()
 			dCount += 1
-			playerLife -= 1
 			m = True
 		if dCount <= dialog.maxLines():
 			Dialog.Dialog(40, script, dCount).box(window)
 	pygame.display.flip()
 
-	#print(clock.get_fps())
+	print(clock.get_fps())
 	clock.tick(144)
