@@ -8,7 +8,7 @@ class Dialog:
 		self.x = x
 		self.textbox = pygame.image.load("textures/hud/textbox.png")
 		self.textbox = pygame.transform.scale(self.textbox, (1020, 200))
-		self.fontDialog = pygame.font.Font(None,30)
+		self.fontDialog = pygame.font.Font("scripts/fonts/VCR_OSD_MONO_1.001.ttf",30)
 		self.script = script
 		self.txt = self.fontDialog.render(self.getLine(dCount), 1, (0, 0, 0))
 
