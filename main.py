@@ -9,14 +9,15 @@ sys.path.insert(0, "Entity")
 sys.path.insert(0, "Entity/Human")
 sys.path.insert(0, "Menu")
 sys.path.insert(0, "HUD")
-import Dialog
-import Inventory
-import Hearts
-import Player
-import Human
-import Enemy
-import Potentiometer
 import Button
+import Dialog
+import Enemy
+import Hearts
+import Human
+import Inventory
+import loadmap
+import Player
+import Potentiometer
 
 pygame.mixer.pre_init(44100, 16, 2, 4096)
 pygame.init()
@@ -38,7 +39,6 @@ xSlider = (650/2) + 50
 wRect = 650
 slider = Potentiometer.Potentiometer(xSlider, (65/2) + 15, 8, 22, green, 1)
 
-
 window = pygame.display.set_mode((1024, 768))
 
 def f():
@@ -50,32 +50,21 @@ button2 = Button.Button(380, 500, 250, 70, "textures/menu/button.png", "textures
 
 menu = Menu.Menu([button1, button2], "textures/menu/background/")
 
-currentlevel = 1
-map1 = Map('textures/tmx/level{}.tmx'.format(currentlevel))
-map_img = map1.make_map()
-
-def initMatrix(self, map):
-	for i in range(map.tmxdata.height):
-		self.mapmatrix.append([])
-		for j in range(map.tmxdata.width):
-			self.mapmatrix[i].append(0)
-	for object in map.tmxdata.objects:
-		if object.name == 'o':
-			self.mapmatrix[int(object.y / 16)][int(object.x / 16)] = 1
-		if object.name == 'player':
-			Player.Player(object.x, object.y, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 2)
-		if object.name == 'enemy':
-			Enemy.Enemy(object.x, object.y, "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 2, player, [[896, 240], [976, 240], [976, 320], [896, 320]])
+currentlevel = 0
+maps = []
+map_imgs = []
+for i in range(2):
+	maps.append(Map('textures/tmx/level{}.tmx'.format(i)))
+	map_imgs.append(maps[i].make_map())
 
 camera = Camera(0, 0, 500)
-initMatrix(Entity, map1)
+loadmap.initMatrix(Entity, maps[0])
 dCount = 0
 
 script = "scripts/script.txt"
 dialog = Dialog.Dialog(40, script, dCount)
 myfont = pygame.font.SysFont("scripts/fonts/VCR_OSD_MONO_1.001.ttf", 27)
 
-Entity.entities[0].inventory = Inventory.Inventory(((1024/2)-int((148*1.5)/2)) + 25, 768- int(39*1.5), Entity.entities[0])
 heart = []
 dark = []
 xhearts = 10
@@ -83,7 +72,6 @@ for s in range(playerLife):
 	heart.append(Hearts.Hearts(xhearts, 10, "heart"))
 	dark.append(Hearts.Hearts(xhearts, 10, "dark"))
 	xhearts += 50
-
 
 clock = pygame.time.Clock()
 
@@ -97,7 +85,6 @@ while windowOpen:
 				m = False
 
 	key = pygame.key.get_pressed()
-
 	rect = Potentiometer.Potentiometer(50, 50, wRect, 15, gray, 0)
 
 	if key[pygame.K_ESCAPE]:
@@ -106,39 +93,41 @@ while windowOpen:
 	if Menu.Menu.menustate == 0:
 		camera.x = Entity.entities[0].position.x
 		camera.y = Entity.entities[0].position.y
-		
+
 		if camera.x - camera.w/2 < 0:
 			camera.x = camera.w/2
 		if camera.y - camera.h/2 < 0:
 			camera.y = camera.h/2
-		if camera.x + camera.w/2 > map1.width:
-			camera.x = map1.width - camera.w/2
-		if camera.y + camera.h/2 > map1.height:
-			camera.y = map1.height - camera.h/2
+		if camera.x + camera.w/2 > maps[currentlevel].width:
+			camera.x = maps[currentlevel].width - camera.w/2
+		if camera.y + camera.h/2 > maps[currentlevel].height:
+			camera.y = maps[currentlevel].height - camera.h/2
 
-		map_img = pygame.transform.scale(map_img, (int(map1.width * 1024 / camera.w), int(map1.height * 1024 / camera.w)))
-		posmap = map_img.get_rect()
+		map_imgs[currentlevel] = pygame.transform.scale(map_imgs[currentlevel], (int(maps[currentlevel].width * 1024 / camera.w), int(maps[currentlevel].height * 1024 / camera.w)))
+		posmap = map_imgs[currentlevel].get_rect()
 
 		posmap = posmap.move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
-		window.blit(map_img, posmap)
+		window.blit(map_imgs[currentlevel], posmap)
 		posmap = posmap.move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
 
 		Entity.entities[0].inventory.box(window)
 
-		if Entity.entities[0].keyowned == False:	
-			if Entity.entities[0].key == True:
+		if not Entity.entities[0].keyowned:
+			if Entity.entities[0].key:
 				Entity.entities[0].inventory.addItem(window, "key")
 				Entity.entities[0].keyowned = True
 
 		Entity.draw(window, camera)
-		Entity.collider(window, map1, map_img, Entity.entities[0], window, camera, currentlevel)
+		result = Entity.collider(window, maps, map_imgs, Entity.entities[0], window, camera, currentlevel)
+		if result != -1:
+			currentlevel = result
 
 		for i in range(3):
 			if i < playerLife:
 				heart[i].box(window)
 			else:
 				dark[i].box(window)
-		
+
 		if playerLife == 0:
 			Menu.Menu.menustate = 1
 			playerLife = 3
@@ -153,7 +142,6 @@ while windowOpen:
 			else:
 				slider.deplacement(window, power)
 				xSlider += power
-				#volume += (percentSlide*0.2)/100
 		if key[pygame.K_LEFT]:
 			if xSlider <= 50:
 				xSlider = 50
@@ -161,13 +149,13 @@ while windowOpen:
 			else:
 				slider.deplacement(window, power)
 				xSlider -= power
-				#volume -= (percentSlide*0.2)/100
+
 		percentSlide = int((100*(xSlider - 50))/650)
 		label = myfont.render(str(percentSlide)+" %", 1, white)
 		slvolume = myfont.render("Volume : ", 1, white)
 		window.blit(label, (xSlider+10, 49))
 		window.blit(slvolume, (300, 20))
-	
+
 	if key[pygame.K_g]:
 		if not m:
 			popsound.play()
@@ -176,8 +164,6 @@ while windowOpen:
 			m = True
 		if dCount <= dialog.maxLines():
 			Dialog.Dialog(40, script, dCount).box(window)
-	#music.set_volume(volume)
 	pygame.display.flip()
 
-	#print("FPS : {}".format(clock.get_fps()))
 	clock.tick(144)
