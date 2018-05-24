@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
-import pygame, sys
+import pygame, sys, linecache
 
 class Dialog:
 
@@ -30,7 +30,7 @@ class Dialog:
 				result += str[i]
 			if count - 1 == n:
 				return result
-				
+
 	def maxLines(self):
 		script = open(self.script, "r")
 		str = script.read()
@@ -40,4 +40,3 @@ class Dialog:
 			if str[i] == chr:
 				count += 1
 		return count + 1
-		

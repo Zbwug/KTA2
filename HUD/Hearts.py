@@ -11,8 +11,7 @@ class Hearts:
 		self.heart = pygame.image.load("textures/hud/hearts.png")
 		self.dark = pygame.image.load("textures/hud/dark.png")
 		self.fontDialog = pygame.font.Font(None,30)
-		
-		
+
 	def box(self, window):
 		if self.state == "heart":
 			window.blit(self.heart, (self.x, self.y))
