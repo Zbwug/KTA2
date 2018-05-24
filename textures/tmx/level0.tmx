@@ -111,9 +111,7 @@
   <object id="500" name="castle" x="928" y="144" width="16" height="16"/>
   <object id="501" name="castle" x="896" y="144" width="16" height="16"/>
  </objectgroup>
- <objectgroup name="Key">
-  <object id="650" name="key" x="1008" y="1472" width="16" height="16"/>
- </objectgroup>
+ <objectgroup name="Key"/>
  <objectgroup name="Obstacles">
   <object id="9" name="o" x="864" y="1232" width="16" height="16"/>
   <object id="10" name="o" x="848" y="1232" width="16" height="16"/>
