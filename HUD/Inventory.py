@@ -25,8 +25,6 @@ class Inventory:
 				window.blit(self.keyimg, ((446, 726)))
 		
 	def addItem(self, window, item):
-		if len(self.listOfItems) < 0:
-			return null
 		if len(self.listOfItems) >= 4:
 			window.blit(self.full, (self.x, self.y - int(39*1.4)))
 		else:
@@ -39,10 +37,6 @@ class Inventory:
 			window.blit(self.empty, (self.x, self.y - int(39*1.4)))
 		if len(self.listOfItems) > 4:
 			return null
-		#if len(self.listOfItems) <= 4:
-			#TODO
-			
-	#TODO def showItems(self, )
 		
 			
 		
