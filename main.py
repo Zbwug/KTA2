@@ -63,7 +63,7 @@ dCount = 0
 
 script = "scripts/script.txt"
 dialog = Dialog.Dialog(40, script, dCount)
-myfont = pygame.font.SysFont("scripts/fonts/VCR_OSD_MONO_1.001.ttf", 27)
+myfont = pygame.font.Font("scripts/fonts/font.ttf", 27)
 
 heart = []
 dark = []
