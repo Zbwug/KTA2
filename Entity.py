@@ -3,6 +3,7 @@ from pygame.locals import *
 from Map import *
 import Map
 sys.path.insert(0, "Entity")
+sys.path.insert(0, "HUD")
 import Player
 import loadmap
 import copy

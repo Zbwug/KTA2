@@ -10,7 +10,7 @@ class Hearts:
 		self.state = state
 		self.heart = pygame.image.load("textures/hud/hearts.png")
 		self.dark = pygame.image.load("textures/hud/dark.png")
-		self.fontDialog = pygame.font.Font("scripts/fonts/font.ttf",30)
+		self.fontDialog = pygame.font.Font(None,30)
 
 	def box(self, window):
 		if self.state == "heart":

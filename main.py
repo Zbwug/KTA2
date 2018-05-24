@@ -24,10 +24,7 @@ pygame.init()
 pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 popsound = pygame.mixer.Sound("textures/hud/pop.wav")
-#music = pygame.mixer.Sound("sounds/mix 8bit.wav")
-#music.play()
 volume = 0.1
-#music.set_volume(volume)
 m = False
 playerLife = 3
 
@@ -43,12 +40,22 @@ window = pygame.display.set_mode((1024, 768))
 
 def f():
 	Menu.Menu.menustate = 0
-button1 = Button.Button(380, 300, 250, 70, "textures/menu/button.png", "textures/menu/INVASION2000.TTF", 48, "Play", f, -1, -1, 1, -1)
+button1 = Button.Button(380, 300, 250, 70, "textures/menu/button.png", "scripts/fonts/VCR_OSD_MONO_1.001.ttf", 48, "Play", f, -1, -1, 1, -1, 60)
+
+def f():
+	Menu.Menu.menustate = 2
+button2 = Button.Button(380, 450, 250, 70, "textures/menu/button.png", "scripts/fonts/VCR_OSD_MONO_1.001.ttf", 48, "Options", f, 0, -1, 2, -1, 28)
+
 def f():
 	exit()
-button2 = Button.Button(380, 500, 250, 70, "textures/menu/button.png", "textures/menu/INVASION2000.TTF", 48, "Quit", f, 0, -1, -1, -1)
+button3 = Button.Button(380, 600, 250, 70, "textures/menu/button.png", "scripts/fonts/VCR_OSD_MONO_1.001.ttf", 48, "Quit", f, 1, -1, -1, -1, 67)
 
-menu = Menu.Menu([button1, button2], "textures/menu/background/")
+def f():
+	Menu.Menu.menustate = 1
+button4 = Button.Button(380, 600, 250, 70, "textures/menu/button.png", "scripts/fonts/VCR_OSD_MONO_1.001.ttf", 48, "Quit", f, -1, -1, -1, -1, 67)
+
+Menu.Menu([button1, button2, button3], "textures/menu/background/")
+Menu.Menu([button4], "textures/menu/background/")
 
 currentlevel = 0
 maps = []
@@ -63,7 +70,7 @@ dCount = 0
 
 script = "scripts/script.txt"
 dialog = Dialog.Dialog(40, script, dCount)
-myfont = pygame.font.Font("scripts/fonts/font.ttf", 27)
+myfont = pygame.font.SysFont("scripts/fonts/VCR_OSD_MONO_1.001.ttf", 27)
 
 heart = []
 dark = []
@@ -83,6 +90,12 @@ while windowOpen:
 		if event.type == pygame.KEYUP:
 			if event.key == pygame.K_g:
 				m = False
+			if event.key == pygame.K_DOWN:
+				if Menu.Menu.menustate == 1:
+					Menu.Menu.down = False
+			if event.key == pygame.K_UP:
+				if Menu.Menu.menustate == 1:
+					Menu.Menu.up = False
 
 	key = pygame.key.get_pressed()
 	rect = Potentiometer.Potentiometer(50, 50, wRect, 15, gray, 0)
@@ -133,6 +146,8 @@ while windowOpen:
 			playerLife = 3
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
+
+	if Menu.Menu.menustate == 2:
 		rect.draw(window)
 		slider.draw(window)
 		if key[pygame.K_RIGHT]:
@@ -165,5 +180,4 @@ while windowOpen:
 		if dCount <= dialog.maxLines():
 			Dialog.Dialog(40, script, dCount).box(window)
 	pygame.display.flip()
-
 	clock.tick(144)
