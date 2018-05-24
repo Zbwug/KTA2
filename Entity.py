@@ -55,6 +55,9 @@ class Entity:
 					bottom = tile_object.y + sTile
 					left = tile_object.x
 					right = tile_object.x + sTile
+					posKey = keyImg.get_rect().move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
+					window.blit(keyImg, (tile_object.x * 1024 / camera.w + posKey.x, tile_object.y * 768 / camera.h + posKey.y))
+					posKey = keyImg.get_rect().move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
 					if player.position.x + sTile >= left and player.position.x <= right and player.position.y + sTile >= top and player.position.y <= bottom:
 						player.key = True
 
