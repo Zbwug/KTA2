@@ -11,7 +11,7 @@ class Inventory:
 		self.img = pygame.image.load("textures/hud/inventory.png")
 		self.img = pygame.transform.scale(self.img, (int(148*1.5), int(39*1.5)))
 		self.listOfItems = []
-		self.fontDialog = pygame.font.Font(None,30)
+		self.fontDialog = pygame.font.Font("scripts/fonts/font.ttf",30)
 		self.full = self.fontDialog.render("L'inventaire est plein !", 1, (255, 0, 0))
 		self.empty = self.fontDialog.render("L'inventaire est vide !", 1, (0, 255, 0))
 		self.keyimg = pygame.image.load("textures/objects/key.png")
