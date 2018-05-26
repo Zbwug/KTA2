@@ -37,16 +37,18 @@ class Entity:
 		Entity.temp = (Entity.temp + 1) % 256
 
 	@staticmethod
-	def collider(self, maps, map_imgs, player, camera, currentlevel):
+	def collider(self, maps, map_imgs, player, window, camera, currentlevel):
 		sTile = 16
 		collideBloc = pygame.image.load("textures/collision.png")
+		keyImg = pygame.image.load("textures/objects/key.png")
+		keyImg = pygame.transform.scale(keyImg, (14*2, 16*2))
 		key = pygame.key.get_pressed()
 
 		for tile_object in maps[currentlevel].tmxdata.objects:
 			if tile_object.name == 'o':
 				if key[pygame.K_c]:
 					posBloc = collideBloc.get_rect().move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
-					self.blit(collideBloc, (tile_object.x * 1024 / camera.w + posBloc.x, tile_object.y * 768 / camera.h + posBloc.y))
+					window.blit(collideBloc, (tile_object.x * 1024 / camera.w + posBloc.x, tile_object.y * 768 / camera.h + posBloc.y))
 					posBloc = collideBloc.get_rect().move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
 
 			if not player.keyowned:
@@ -56,7 +58,7 @@ class Entity:
 					left = tile_object.x
 					right = tile_object.x + sTile
 					posKey = keyImg.get_rect().move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
-					self.blit(keyImg, (tile_object.x * 1024 / camera.w + posKey.x, tile_object.y * 768 / camera.h + posKey.y))
+					window.blit(keyImg, (tile_object.x * 1024 / camera.w + posKey.x, tile_object.y * 768 / camera.h + posKey.y))
 					posKey = keyImg.get_rect().move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
 					if player.position.x + sTile >= left and player.position.x <= right and player.position.y + sTile >= top and player.position.y <= bottom:
 						player.key = True
