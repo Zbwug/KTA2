@@ -131,7 +131,7 @@ while windowOpen:
 				Entity.entities[0].keyowned = True
 
 		Entity.draw(window, camera)
-		result = Entity.collider(window, maps, map_imgs, Entity.entities[0], window, camera, currentlevel)
+		result = Entity.collider(window, maps, map_imgs, Entity.entities[0], camera, currentlevel)
 		if result != -1:
 			currentlevel = result
 
