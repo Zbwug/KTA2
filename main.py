@@ -25,7 +25,7 @@ pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 popsound = pygame.mixer.Sound("textures/hud/pop.wav")
 volume = 0.1
-intro = pygame.mixer.Sound("sounds/intro.wav")
+intro = pygame.mixer.Sound("sounds/menu.wav")
 intro.set_volume(0.1)
 intro.play()
 m = False
