@@ -41,7 +41,7 @@ hRect = 20
 xrectslider = 1024/2 - wRect/2
 yrectslider = 450
 xSlider = (wRect/2) + xrectslider
-slider = Potentiometer.Potentiometer(xSlider, (65/2) + 15, 8, 22, green, 1)
+slider = Potentiometer.Potentiometer(xSlider, yrectslider - 1, 8, 22, "textures/menu/slider.png", "Rectangle")
 
 window = pygame.display.set_mode((1024, 768))
 
