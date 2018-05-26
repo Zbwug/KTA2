@@ -16,7 +16,7 @@ class Menu:
 		self.gif = gif
 		self.gifbg = pygame.image.load("textures/menu/background/gif2.png")
 		self.gifbg =  pygame.transform.scale(self.gifbg, (8192, 768))
-		self.logo = pygame.image.load("textures/menu/background/kta2.png")
+		self.logo = pygame.image.load("textures/menu/logo.png")
 		self.logo = pygame.transform.scale(self.logo, (int(1920/3), int(1080/3)))
 		self.logoposition = self.logo.get_rect()
 		self.gifposition = self.gifbg.get_rect()
