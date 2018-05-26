@@ -60,7 +60,7 @@ Menu.Menu([button4], "textures/menu/background/")
 currentlevel = 0
 maps = []
 map_imgs = []
-for i in range(2):
+for i in range(3):
 	maps.append(Map('textures/tmx/level{}.tmx'.format(i)))
 	map_imgs.append(maps[i].make_map())
 
