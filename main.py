@@ -47,15 +47,15 @@ window = pygame.display.set_mode((1024, 768))
 
 def f():
 	Menu.Menu.menustate = 0
-button1 = Button.Button(380, 300, 250, 70, "textures/menu/button.png", "scripts/fonts/font.ttf", 48, "Play", f, -1, -1, 1, -1, 60)
+button1 = Button.Button(400, 300, 250, 70, "textures/menu/button.png", "scripts/fonts/font.ttf", 48, "Play", f, -1, -1, 1, -1, 60)
 
 def f():
 	Menu.Menu.menustate = 2
-button2 = Button.Button(380, 450, 250, 70, "textures/menu/button.png", "scripts/fonts/font.ttf", 48, "Options", f, 0, -1, 2, -1, 28)
+button2 = Button.Button(520, 450, 250, 70, "textures/menu/button.png", "scripts/fonts/font.ttf", 48, "Options", f, 0, -1, 2, -1, 28)
 
 def f():
 	exit()
-button3 = Button.Button(380, 600, 250, 70, "textures/menu/button.png", "scripts/fonts/font.ttf", 48, "Quit", f, 1, -1, -1, -1, 67)
+button3 = Button.Button(640, 600, 250, 70, "textures/menu/button.png", "scripts/fonts/font.ttf", 48, "Quit", f, 1, -1, -1, -1, 67)
 
 def f():
 	Menu.Menu.menustate = 1
