@@ -17,7 +17,7 @@ class Menu:
 		self.gifbg = pygame.image.load("textures/menu/background/gif2.png")
 		self.gifbg =  pygame.transform.scale(self.gifbg, (8192, 768))
 		self.logo = pygame.image.load("textures/menu/logo.png")
-		self.logo = pygame.transform.scale(self.logo, (int(1920/3), int(1080/3)))
+		self.logo = pygame.transform.scale(self.logo, (555, 408))
 		self.logoposition = self.logo.get_rect()
 		self.gifposition = self.gifbg.get_rect()
 		self.maxNumberOfFrame = 8
@@ -30,7 +30,7 @@ class Menu:
 		if self.temp == 9:
 			self.cdGif = (self.cdGif + 1) % (self.maxNumberOfFrame - 1)
 		window.blit(self.gifbg, self.gifposition, (self.cdGif*1024, 0, 1024, 768))
-		window.blit(self.logo, self.logoposition, (-175, 0, 1024, 768))
+		window.blit(self.logo, self.logoposition, (-250, 0, 1024, 768))
 
 		for j in range(len(self.buttons)):
 			if self.selectedbutton == j:
