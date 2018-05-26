@@ -1,12 +1,10 @@
-import sys
-sys.path.insert(0, "..")
-from Entity import Entity
 import math
+import sys
+from Entity import Entity
 
 class Human(Entity):
-	def __init__(self, x, y, image, nbAnimsFrames, pace, player, pattern):
-		super(Human, self).__init__(x, y, image, nbAnimsFrames, pace)
-		self.player = player
+	def __init__(self, x, y, speed, image, nbAnimsFrames, pace, pattern):
+		super(Human, self).__init__(x, y, speed, image, nbAnimsFrames, pace)
 		self.pattern = pattern
 		self.patternstate = 0
 
@@ -36,7 +34,7 @@ class Human(Entity):
 		super(Human, self).render(window, camera)
 		if self.position.x % 16 == 0 and self.position.y % 16 == 0:
 			path = []
-			self.setTarget()
+			self.setTarget(window)
 			path = self.astar([int(self.target[0] / 16), int(self.target[1] / 16)])
 			if len(path) >= 2:
 				if path[1][1] - path[0][1] == 1:

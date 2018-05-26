@@ -1,10 +1,8 @@
-import sys
-sys.path.insert(0, "..")
 from Human import Human
 
 class Enemy(Human):
-	def __init__(self, x, y, image, nbAnimsFrames, pace, player, pattern):
-		super(Enemy, self).__init__(x, y, image, nbAnimsFrames, pace, player, pattern)
+	def __init__(self, x, y, speed, image, nbAnimsFrames, pace, player, pattern):
+		super(Enemy, self).__init__(x, y, speed, image, nbAnimsFrames, pace, player, pattern)
 		self.pursuit = False
 
 	def setTarget(self):

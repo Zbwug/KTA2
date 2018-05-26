@@ -5,19 +5,18 @@ import Map
 sys.path.insert(0, "Entity")
 sys.path.insert(0, "HUD")
 import Player
-import loadmap
-import copy
 
 class Entity:
 	temp = 0
 	entities = []
 	mapmatrix = []
 
-	def __init__(self, x, y, image, nbAnimsFrames, pace):
+	def __init__(self, x, y, speed, image, nbAnimsFrames, pace):
 		self.sprite = pygame.image.load(image)
 		self.position = self.sprite.get_rect()
 		self.size = self.position.size
 		self.position = self.position.move(x, y)
+		self.speed = speed
 		self.anim = 0
 		self.frame = 0
 		self.maxAnimsFrames = 0
@@ -70,12 +69,14 @@ class Entity:
 							oldcurrentlevel = currentlevel
 							currentlevel = int(tile_object.name[4:])
 							Entity.entities = []
+							import loadmap
 							loadmap.initMatrix(Entity, self, maps[currentlevel], False, oldcurrentlevel)
 							return currentlevel
 					else:
 						oldcurrentlevel = currentlevel
 						currentlevel = int(tile_object.name[4:])
 						Entity.entities = []
+						import loadmap
 						loadmap.initMatrix(Entity, self, maps[currentlevel], player.keyowned, oldcurrentlevel)
 						return currentlevel
 		return -1
@@ -96,13 +97,13 @@ class Entity:
 			window.blit(self.sprite, self.position, (self.frame * width / self.maxAnimsFrames, self.anim * height / len(self.nbAnimsFrames), width / self.maxAnimsFrames, height / len(self.nbAnimsFrames)))
 			self.position = self.position.move(int(camera.x - (position[0] - camera.x) * (1024 / camera.w - 1) - 512), int(camera.y - (position[1] - camera.y) * (1024 / camera.w - 1) - 383))
 			if self.anim == 4:
-				self.position = self.position.move(0, 4)
+				self.position = self.position.move(0, self.speed)
 			elif self.anim == 5:
-				self.position = self.position.move(-4, 0)
+				self.position = self.position.move(-self.speed, 0)
 			elif self.anim == 6:
-				self.position = self.position.move(0, -4)
+				self.position = self.position.move(0, -self.speed)
 			elif self.anim == 7:
-				self.position = self.position.move(4, 0)
+				self.position = self.position.move(self.speed, 0)
 		if self.anim >= 8:
 			if Entity.temp % self.pace == 0:
 				self.frame += 1
