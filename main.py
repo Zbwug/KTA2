@@ -106,8 +106,8 @@ while windowOpen:
 					Menu.Menu.up = False
 	intro.set_volume(volume)
 	key = pygame.key.get_pressed()
-	rect = Potentiometer.Potentiometer(xrectslider, yrectslider, wRect, hRect, "textures/stone.png", "Rectangle")
-
+	rect = Potentiometer.Potentiometer(xrectslider, yrectslider, wRect, hRect, "textures/menu/stone.png", "Rectangle")
+	
 	if key[pygame.K_ESCAPE]:
 		Menu.Menu.menustate = 1
 
@@ -159,16 +159,24 @@ while windowOpen:
 		rect.draw(window)
 		slider.draw(window)
 		if key[pygame.K_RIGHT]:
-			if xSlider >= wRect + 47:
-				xSlider = 700
+			if xSlider >= wRect + (xrectslider - 3):
+				xSlider = wRect + xrectslider
 				volume = 0.2
+			elif (xSlider + 512) % 5 == 0:
+				volume += 0.002
+				slider.deplacement(window, power)
+				xSlider += power
 			else:
 				slider.deplacement(window, power)
 				xSlider += power
 		if key[pygame.K_LEFT]:
-			if xSlider <= 50:
-				xSlider = 50
+			if xSlider <= xrectslider:
+				xSlider = xrectslider
 				volume = 0
+			elif (xSlider - 512) % 5 == 0:
+				volume -= 0.002
+				slider.deplacement(window, power)
+				xSlider -= power
 			else:
 				slider.deplacement(window, power)
 				xSlider -= power
@@ -178,6 +186,7 @@ while windowOpen:
 		slvolume = myfont.render("Volume : ", 1, white)
 		window.blit(label, (xSlider+10, yrectslider))
 		window.blit(slvolume, ((wRect/2) + 0.75*xrectslider, yrectslider - hRect - 30))
+
 
 	if key[pygame.K_g]:
 		if not m:
