@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="670">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextobjectid="671">
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer name="Map" width="100" height="100">
   <data encoding="csv">
@@ -106,8 +106,7 @@
 </data>
  </layer>
  <objectgroup name="Doors">
-  <object id="666" name="door" x="1424" y="160" width="16" height="16"/>
-  <object id="667" name="door" x="1440" y="160" width="16" height="16"/>
+  <object id="670" name="player1" x="1432" y="167" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="Key"/>
  <objectgroup name="Obstacles">
@@ -635,7 +634,7 @@
   <object id="665" name="o" x="752" y="272" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="Player">
-  <object id="7" name="player" x="1016" y="1536" width="16" height="16"/>
+  <object id="7" name="player0" x="1016" y="1520" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="Exit">
   <object id="494" name="exit1" x="240" y="799.989" width="16" height="16"/>
