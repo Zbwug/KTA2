@@ -63,9 +63,9 @@ class Entity:
 					if player.position.x + sTile >= left and player.position.x <= right and player.position.y + sTile >= top and player.position.y <= bottom:
 						player.key = True
 
-			if tile_object.name == 'exit':
+			if tile_object.name.startswith('exit'):
 				if tile_object.x <= player.position.x + player.size[0] and tile_object.x + 16 >= player.position.x and tile_object.y <= player.position.y + player.size[1] and tile_object.y + 16 >= player.position.y:
-					currentlevel += 1
+					currentlevel = int(tile_object.name[4:])
 					Entity.entities = []
 					loadmap.initMatrix(Entity, maps[currentlevel])
 					return currentlevel
