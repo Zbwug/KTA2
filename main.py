@@ -25,6 +25,9 @@ pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 popsound = pygame.mixer.Sound("textures/hud/pop.wav")
 volume = 0.1
+intro = pygame.mixer.Sound("sounds/intro.wav")
+intro.set_volume(0.1)
+intro.play()
 m = False
 playerLife = 3
 
@@ -34,6 +37,10 @@ white = pygame.Color(255, 255, 255, 255)
 power = 1
 xSlider = (650/2) + 50
 wRect = 650
+hRect = 20
+xrectslider = 1024/2 - wRect/2
+yrectslider = 450
+xSlider = (wRect/2) + xrectslider
 slider = Potentiometer.Potentiometer(xSlider, (65/2) + 15, 8, 22, green, 1)
 
 window = pygame.display.set_mode((1024, 768))
@@ -65,7 +72,7 @@ for i in range(3):
 	map_imgs.append(maps[i].make_map())
 
 camera = Camera(0, 0, 500)
-loadmap.initMatrix(Entity, maps[0])
+loadmap.initMatrix(Entity, window, maps[0], False, 0)
 dCount = 0
 
 script = "scripts/script.txt"
@@ -75,6 +82,7 @@ myfont = pygame.font.Font("scripts/fonts/font.ttf", 27)
 heart = []
 dark = []
 xhearts = 10
+
 for s in range(playerLife):
 	heart.append(Hearts.Hearts(xhearts, 10, "heart"))
 	dark.append(Hearts.Hearts(xhearts, 10, "dark"))
@@ -96,9 +104,9 @@ while windowOpen:
 			if event.key == pygame.K_UP:
 				if Menu.Menu.menustate == 1:
 					Menu.Menu.up = False
-
+	intro.set_volume(volume)
 	key = pygame.key.get_pressed()
-	rect = Potentiometer.Potentiometer(50, 50, wRect, 15, gray, 0)
+	rect = Potentiometer.Potentiometer(xrectslider, yrectslider, wRect, hRect, "textures/stone.png", "Rectangle")
 
 	if key[pygame.K_ESCAPE]:
 		Menu.Menu.menustate = 1
@@ -165,11 +173,11 @@ while windowOpen:
 				slider.deplacement(window, power)
 				xSlider -= power
 
-		percentSlide = int((100*(xSlider - 50))/650)
+		percentSlide = int((100*(xSlider - xrectslider))/wRect)
 		label = myfont.render(str(percentSlide)+" %", 1, white)
 		slvolume = myfont.render("Volume : ", 1, white)
-		window.blit(label, (xSlider+10, 49))
-		window.blit(slvolume, (300, 20))
+		window.blit(label, (xSlider+10, yrectslider))
+		window.blit(slvolume, ((wRect/2) + 0.75*xrectslider, yrectslider - hRect - 30))
 
 	if key[pygame.K_g]:
 		if not m:

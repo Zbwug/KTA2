@@ -65,10 +65,19 @@ class Entity:
 
 			if tile_object.name.startswith('exit'):
 				if tile_object.x <= player.position.x + player.size[0] and tile_object.x + 16 >= player.position.x and tile_object.y <= player.position.y + player.size[1] and tile_object.y + 16 >= player.position.y:
-					currentlevel = int(tile_object.name[4:])
-					Entity.entities = []
-					loadmap.initMatrix(Entity, maps[currentlevel])
-					return currentlevel
+					if int(tile_object.name[4:]) == 2:
+						if player.keyowned:
+							oldcurrentlevel = currentlevel
+							currentlevel = int(tile_object.name[4:])
+							Entity.entities = []
+							loadmap.initMatrix(Entity, self, maps[currentlevel], False, oldcurrentlevel)
+							return currentlevel
+					else:
+						oldcurrentlevel = currentlevel
+						currentlevel = int(tile_object.name[4:])
+						Entity.entities = []
+						loadmap.initMatrix(Entity, self, maps[currentlevel], player.keyowned, oldcurrentlevel)
+						return currentlevel
 		return -1
 
 	def render(self, window, camera):
