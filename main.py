@@ -27,7 +27,7 @@ popsound = pygame.mixer.Sound("textures/hud/pop.wav")
 volume = 0.1
 intro = pygame.mixer.Sound("sounds/menu.wav")
 intro.set_volume(0.1)
-intro.play()
+intro.play(loops = -1)
 m = False
 playerLife = 3
 
@@ -107,7 +107,7 @@ while windowOpen:
 	intro.set_volume(volume)
 	key = pygame.key.get_pressed()
 	rect = Potentiometer.Potentiometer(xrectslider, yrectslider, wRect, hRect, "textures/menu/stone.png", "Rectangle")
-	
+
 	if key[pygame.K_ESCAPE]:
 		Menu.Menu.menustate = 1
 
