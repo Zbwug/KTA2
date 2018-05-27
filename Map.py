@@ -28,6 +28,5 @@ class Camera:
 		self.x = 0
 		self.y = 0
 		self.zooms = [500, 300, 500]
-		print(self.zooms[h])
 		self.h = self.zooms[h]
 		self.w = int(4/3 * self.h)
