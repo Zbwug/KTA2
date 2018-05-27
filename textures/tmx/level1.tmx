@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" nextobjectid="284">
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16" infinite="0" nextobjectid="284">
  <tileset firstgid="1" source="woods.tsx"/>
  <layer name="Ground" width="48" height="48">
   <data encoding="csv">
@@ -209,10 +209,10 @@
   <object id="154" name="o" x="336" y="240" width="16" height="16"/>
   <object id="155" name="o" x="352" y="240" width="16" height="16"/>
   <object id="156" name="o" x="368" y="240" width="16" height="16"/>
-  <object id="157" name="o" x="384" y="256" width="16" height="16"/>
-  <object id="158" name="o" x="400" y="256" width="16" height="16"/>
-  <object id="159" name="o" x="416" y="256" width="16" height="16"/>
-  <object id="160" name="o" x="432" y="256" width="16" height="16"/>
+  <object id="157" name="o" x="384" y="240" width="16" height="16"/>
+  <object id="158" name="o" x="400" y="240" width="16" height="16"/>
+  <object id="159" name="o" x="416" y="240" width="16" height="16"/>
+  <object id="160" name="o" x="432" y="240" width="16" height="16"/>
   <object id="161" name="o" x="448" y="240" width="16" height="16"/>
   <object id="162" name="o" x="448" y="224" width="16" height="16"/>
   <object id="163" name="o" x="448" y="208" width="16" height="16"/>
