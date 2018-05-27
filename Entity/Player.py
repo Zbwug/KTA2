@@ -10,9 +10,10 @@ from NPC import NPC
 class Player(Entity):
 	def __init__(self, x, y, speed, image, nbAnimsFrames, pace):
 		super(Player, self).__init__(x, y, speed, image, nbAnimsFrames, pace)
-		self.inventory = Inventory(((888)-int((148*1.5)/2)) + 25, 768- int(39*1.5), self)
+		self.inventory = Inventory(((1024/2)-int((148*1.5)/2)) + 25, 768- int(39*1.5), self)
 		self.spacepressed = False
 		self.moving = True
+		self.life = 3
 
 	def render(self, window, camera):
 		super(Player, self).render(window, camera)
