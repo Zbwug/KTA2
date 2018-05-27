@@ -165,9 +165,7 @@ while windowOpen:
 		result = Entity.collider(window, maps, map_imgs, Entity.entities[0], camera, currentlevel)
 		if result[0] != -1:
 			currentlevel = result[0]
-		print(result[1])
 		if result[1] != None:
-			print("test")
 			camera = result[1]
 
 		for i in range(3):
