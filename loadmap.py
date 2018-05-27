@@ -17,7 +17,7 @@ def initMatrix(self, window, map, keyowned, oldcurrentlevel):
 		if object.name == 'o':
 			self.mapmatrix[int(object.y / 16)][int(object.x / 16)] = 1
 		if object.name.startswith('player') and int(object.name[6:]) == oldcurrentlevel:
-			player = Player.Player(object.x, object.y, int(object.properties['speed']), "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 2)
+			player = Player.Player(object.x, object.y, int(object.properties['speed']), "textures/link.png", [1, 1, 1, 1, 10, 10, 10, 10], 3)
 			player.entities.remove(player)
 			player.entities.insert(0, player)
 			if keyowned:
