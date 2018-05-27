@@ -131,8 +131,6 @@ while windowOpen:
 		window.blit(map_imgs[currentlevel], posmap)
 		posmap = posmap.move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
 
-		Entity.entities[0].inventory.box(window)
-
 		if not Entity.entities[0].keyowned:
 			if Entity.entities[0].key:
 				Entity.entities[0].inventory.addItem(window, "key")
@@ -142,6 +140,8 @@ while windowOpen:
 		result = Entity.collider(window, maps, map_imgs, Entity.entities[0], camera, currentlevel)
 		if result != -1:
 			currentlevel = result
+			
+		Entity.entities[0].inventory.box(window)
 
 		for i in range(3):
 			if i < playerLife:
