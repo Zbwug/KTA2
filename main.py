@@ -144,8 +144,6 @@ while windowOpen:
 		window.blit(map_imgs[currentlevel], posmap)
 		posmap = posmap.move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
 
-		Entity.entities[0].inventory.box(window)
-
 		if not Entity.entities[0].keyowned:
 			if Entity.entities[0].key:
 				Entity.entities[0].inventory.addItem(window, "key")
@@ -157,6 +155,8 @@ while windowOpen:
 			currentlevel = result[0]
 		if result[1] != None:
 			camera = result[1]
+
+		Entity.entities[0].inventory.box(window)
 
 		for i in range(3):
 			if i < Entity.entities[0].life:
@@ -202,14 +202,5 @@ while windowOpen:
 		window.blit(label, (xSlider+10, yrectslider))
 		window.blit(slvolume, ((wRect/2) + 0.75*xrectslider, yrectslider - hRect - 30))
 
-
-	if key[pygame.K_g]:
-		if not m:
-			popsound.play()
-			dCount += 1
-			playerLife -= 1
-			m = True
-		if dCount <= dialog.maxLines():
-			Dialog.Dialog(40, script, dCount).box(window)
 	pygame.display.flip()
 	clock.tick(144)
