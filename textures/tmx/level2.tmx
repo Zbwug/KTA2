@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="44" height="37" tilewidth="16" tileheight="16" infinite="0" nextobjectid="171">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="44" height="37" tilewidth="16" tileheight="16" nextobjectid="173">
  <tileset firstgid="1" source="boss2.tsx"/>
  <tileset firstgid="769" source="boss.tsx"/>
  <layer name="Ground" width="44" height="37">
@@ -43,8 +43,22 @@
 994,995,996,997,997,996,997,996,997,998,999,998,999,996,997,998,999,996,997,1002,1003,1256,1257,1004,1003,1004,1002,1003,1004,1005,1002,1003,1004,1005,1005,1004,1004,1004,1004,1005,1004,1005,1006,1007
 </data>
  </layer>
+ <objectgroup name="Anthony">
+  <object id="171" name="anthony" x="96" y="111.938" width="16" height="15.875">
+   <properties>
+    <property name="maxX" type="int" value="528"/>
+    <property name="maxY" type="int" value="336"/>
+    <property name="minX" type="int" value="96"/>
+    <property name="minY" type="int" value="111"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup name="Player">
-  <object id="3" name="player0" x="344" y="535" width="16" height="16"/>
+  <object id="3" name="player0" x="344" y="535" width="16" height="16">
+   <properties>
+    <property name="speed" type="int" value="4"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="Obstacles">
   <object id="4" name="o" x="288" y="496" width="16" height="16"/>
