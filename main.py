@@ -25,15 +25,10 @@ pygame.mixer.init()
 pygame.display.set_caption("Kill the Anthony 2")
 popsound = pygame.mixer.Sound("textures/hud/pop.wav")
 volume = 0.1
-intro = pygame.mixer.Sound("sounds/menu.wav")
-
-#plainMusic = pygame.mixer.Sound("sounds/plainMusic.wav")
-woodsMusic = pygame.mixer.Sound("sounds/mWood.wav")
-bossMusic = pygame.mixer.Sound("sounds/mBoss.wav")
-
-intro.set_volume(0.1)
-intro.play(loops = -1)
-m = False
+mMenu = pygame.mixer.Sound("sounds/mMenu.wav")
+mWind = pygame.mixer.Sound("sounds/mWind.wav")
+mWood = pygame.mixer.Sound("sounds/mWood.wav")
+mBoss = pygame.mixer.Sound("sounds/mBoss.wav")
 
 gray = pygame.Color(120, 120, 120, 255)
 green = pygame.Color(0, 255, 0, 255)
@@ -93,6 +88,7 @@ for s in range(Entity.entities[0].life):
 	xhearts += 50
 
 clock = pygame.time.Clock()
+mMenu.play(loops=-1)
 
 windowOpen = True
 while windowOpen:
@@ -100,18 +96,16 @@ while windowOpen:
 		if event.type == QUIT:
 			exit()
 		if event.type == pygame.KEYUP:
-			if event.key == pygame.K_g:
-				m = False
 			if event.key == pygame.K_DOWN:
 				if Menu.Menu.menustate == 1:
 					Menu.Menu.down = False
 			if event.key == pygame.K_UP:
 				if Menu.Menu.menustate == 1:
 					Menu.Menu.up = False
-	intro.set_volume(volume)
-	#plainMusic.set_volume(volume)
-	woodsMusic.set_volume(volume)
-	bossMusic.set_volume(volume)
+	mMenu.set_volume(volume)
+	mWind.set_volume(volume)
+	mWood.set_volume(volume)
+	mBoss.set_volume(volume)
 	key = pygame.key.get_pressed()
 	rect = Potentiometer.Potentiometer(xrectslider, yrectslider, wRect, hRect, "textures/menu/stone.png", "Rectangle")
 
@@ -131,13 +125,9 @@ while windowOpen:
 		if camera.y + camera.h/2 > maps[currentlevel].height:
 			camera.y = maps[currentlevel].height - camera.h/2
 
-		#if currentlevel == 0:
-		#       intro.stop()
-		#       woodsMusic.stop()
-		#       bossMusic.stop()
-		#       plainMusic.play(loops = -1)
-		if currentlevel == 1:
-			intro.stop()
+
+		"""if currentlevel == 1:
+			
 			#plainMusic.stop()
 			bossMusic.stop()
 			woodsMusic.play(loops =-1)
@@ -145,7 +135,7 @@ while windowOpen:
 			intro.stop()
 			#plainMusic.stop()
 			woodsMusic.stop()
-			bossMusic.play(loops = -1)
+			bossMusic.play(loops = -1)"""
 
 		map_imgs[currentlevel] = pygame.transform.scale(map_imgs[currentlevel], (int(maps[currentlevel].width * 1024 / camera.w), int(maps[currentlevel].height * 1024 / camera.w)))
 		posmap = map_imgs[currentlevel].get_rect()
