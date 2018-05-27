@@ -69,17 +69,19 @@ class Entity:
 							oldcurrentlevel = currentlevel
 							currentlevel = int(tile_object.name[4:])
 							Entity.entities = []
+							camera = Map.Camera(currentlevel)
 							import loadmap
 							loadmap.initMatrix(Entity, self, maps[currentlevel], False, oldcurrentlevel)
-							return currentlevel
+							return [currentlevel, camera]
 					else:
 						oldcurrentlevel = currentlevel
 						currentlevel = int(tile_object.name[4:])
 						Entity.entities = []
+						camera = Map.Camera(currentlevel)
 						import loadmap
 						loadmap.initMatrix(Entity, self, maps[currentlevel], player.keyowned, oldcurrentlevel)
-						return currentlevel
-		return -1
+						return [currentlevel, camera]
+		return [-1, None]
 
 	def render(self, window, camera):
 		self.sprite = pygame.transform.scale(self.sprite, (int(self.size[0] * 1024 / camera.w), int(self.size[1] * 768 / camera.h)))

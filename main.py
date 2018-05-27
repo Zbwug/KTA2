@@ -26,10 +26,14 @@ pygame.display.set_caption("Kill the Anthony 2")
 popsound = pygame.mixer.Sound("textures/hud/pop.wav")
 volume = 0.1
 intro = pygame.mixer.Sound("sounds/menu.wav")
+
+#plainMusic = pygame.mixer.Sound("sounds/plainMusic.wav")
+woodsMusic = pygame.mixer.Sound("sounds/mWood.wav")
+bossMusic = pygame.mixer.Sound("sounds/mBoss.wav")
+
 intro.set_volume(0.1)
 intro.play(loops = -1)
 m = False
-playerLife = 3
 
 gray = pygame.Color(120, 120, 120, 255)
 green = pygame.Color(0, 255, 0, 255)
@@ -71,8 +75,8 @@ for i in range(3):
 	maps.append(Map('textures/tmx/level{}.tmx'.format(i)))
 	map_imgs.append(maps[i].make_map())
 
-camera = Camera(0, 0, 500)
-loadmap.initMatrix(Entity, window, maps[0], False, 0)
+camera = Camera(currentlevel)
+loadmap.initMatrix(Entity, window, maps[currentlevel], False, 0)
 dCount = 0
 
 script = "scripts/script.txt"
@@ -83,7 +87,7 @@ heart = []
 dark = []
 xhearts = 10
 
-for s in range(playerLife):
+for s in range(Entity.entities[0].life):
 	heart.append(Hearts.Hearts(xhearts, 10, "heart"))
 	dark.append(Hearts.Hearts(xhearts, 10, "dark"))
 	xhearts += 50
@@ -105,6 +109,9 @@ while windowOpen:
 				if Menu.Menu.menustate == 1:
 					Menu.Menu.up = False
 	intro.set_volume(volume)
+	#plainMusic.set_volume(volume)
+	woodsMusic.set_volume(volume)
+	bossMusic.set_volume(volume)
 	key = pygame.key.get_pressed()
 	rect = Potentiometer.Potentiometer(xrectslider, yrectslider, wRect, hRect, "textures/menu/stone.png", "Rectangle")
 
@@ -124,12 +131,30 @@ while windowOpen:
 		if camera.y + camera.h/2 > maps[currentlevel].height:
 			camera.y = maps[currentlevel].height - camera.h/2
 
+		#if currentlevel == 0:
+		#       intro.stop()
+		#       woodsMusic.stop()
+		#       bossMusic.stop()
+		#       plainMusic.play(loops = -1)
+		if currentlevel == 1:
+			intro.stop()
+			#plainMusic.stop()
+			bossMusic.stop()
+			woodsMusic.play(loops =-1)
+		if currentlevel == 2:
+			intro.stop()
+			#plainMusic.stop()
+			woodsMusic.stop()
+			bossMusic.play(loops = -1)
+
 		map_imgs[currentlevel] = pygame.transform.scale(map_imgs[currentlevel], (int(maps[currentlevel].width * 1024 / camera.w), int(maps[currentlevel].height * 1024 / camera.w)))
 		posmap = map_imgs[currentlevel].get_rect()
 
 		posmap = posmap.move(int(-camera.x * 1024 / camera.w + 512), int(-camera.y * 1024 / camera.w + 383))
 		window.blit(map_imgs[currentlevel], posmap)
 		posmap = posmap.move(int(camera.x * 1024 / camera.w - 512), int(camera.y * 1024 / camera.w - 383))
+
+		Entity.entities[0].inventory.box(window)
 
 		if not Entity.entities[0].keyowned:
 			if Entity.entities[0].key:
@@ -138,20 +163,22 @@ while windowOpen:
 
 		Entity.draw(window, camera)
 		result = Entity.collider(window, maps, map_imgs, Entity.entities[0], camera, currentlevel)
-		if result != -1:
-			currentlevel = result
-			
-		Entity.entities[0].inventory.box(window)
+		if result[0] != -1:
+			currentlevel = result[0]
+		print(result[1])
+		if result[1] != None:
+			print("test")
+			camera = result[1]
 
 		for i in range(3):
-			if i < playerLife:
+			if i < Entity.entities[0].life:
 				heart[i].box(window)
 			else:
 				dark[i].box(window)
 
-		if playerLife == 0:
+		if Entity.entities[0].life == 0:
 			Menu.Menu.menustate = 1
-			playerLife = 3
+			Entity.entities[0].life = 3
 	else:
 		Menu.Menu.menus[Menu.Menu.menustate - 1].draw(window)
 

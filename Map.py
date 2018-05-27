@@ -24,8 +24,10 @@ class Map:
 		return temp_surface
 
 class Camera:
-	def __init__(self, x, y, h):
-		self.x = x
-		self.y = y
-		self.h = h
-		self.w = int(4/3 * h)
+	def __init__(self, h):
+		self.x = 0
+		self.y = 0
+		self.zooms = [500, 200, 500]
+		print(self.zooms[h])
+		self.h = self.zooms[h]
+		self.w = int(4/3 * self.h)
