@@ -22,7 +22,7 @@ class Inventory:
 		window.blit(self.img, (self.x, self.y))
 		for items in range(len(self.listOfItems)):
 			if self.listOfItems[items] == "key":
-				window.blit(self.keyimg, ((446, 726)))
+				window.blit(self.keyimg, ((self.x + 18, self.y + 15)))
 		
 	def addItem(self, window, item):
 		if len(self.listOfItems) >= 4:
