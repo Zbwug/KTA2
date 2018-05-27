@@ -125,17 +125,21 @@ while windowOpen:
 		if camera.y + camera.h/2 > maps[currentlevel].height:
 			camera.y = maps[currentlevel].height - camera.h/2
 
-
-		"""if currentlevel == 1:
-			
-			#plainMusic.stop()
-			bossMusic.stop()
-			woodsMusic.play(loops =-1)
-		if currentlevel == 2:
-			intro.stop()
-			#plainMusic.stop()
-			woodsMusic.stop()
-			bossMusic.play(loops = -1)"""
+		if currentlevel == 0 and mWind.get_num_channels() == 0:
+			mWood.stop()
+			mMenu.stop()
+			mBoss.stop()
+			mWind.play(loops =-1)
+		if currentlevel == 1 and mWood.get_num_channels() == 0:
+			mMenu.stop()
+			mWind.stop()
+			mBoss.stop()
+			mWood.play(loops =-1)
+		if currentlevel == 2 and mBoss.get_num_channels() == 0:
+			mMenu.stop()
+			mWind.stop()
+			mWood.stop()
+			mBoss.play(loops = -1)
 
 		map_imgs[currentlevel] = pygame.transform.scale(map_imgs[currentlevel], (int(maps[currentlevel].width * 1024 / camera.w), int(maps[currentlevel].height * 1024 / camera.w)))
 		posmap = map_imgs[currentlevel].get_rect()
